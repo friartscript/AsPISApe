@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AsPISApe.Views.HomePage"
+             BackgroundColor="#F5F7FB"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False">
+
+    <Grid>
+        <Grid RowDefinitions="Auto, *"
+              Padding="20, 24, 20, 24"
+              MaximumWidthRequest="450"
+              HorizontalOptions="Center">
+
+            <Border Grid.Row="0"
+                    BackgroundColor="#FFFFFF"
+                    Stroke="#2C3445"
+                    StrokeThickness="2"
+                    StrokeShape="RoundRectangle 22"
+                    Padding="14, 10"
+                    Margin="0, 0, 0, 16">
+                <Border.Shadow>
+                    <Shadow Brush="#CBD5E1" Offset="0, 4" Radius="8" Opacity="0.5" />
+                </Border.Shadow>
+                <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12">
+                    <Border Grid.Column="0"
+                            WidthRequest="48"
+                            HeightRequest="48"
+                            StrokeShape="RoundRectangle 24"
+                            Stroke="#2C3445"
+                            StrokeThickness="2"
+                            BackgroundColor="#E2E8F0"
+                            VerticalOptions="Center"
+                            Padding="0">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnHeaderAvatarTapped" />
+                        </Border.GestureRecognizers>
+                        <Grid WidthRequest="44"
+                              HeightRequest="44"
+                              HorizontalOptions="Center"
+                              VerticalOptions="Center">
+                            <Grid.Clip>
+                                <EllipseGeometry Center="22,22" RadiusX="22" RadiusY="22" />
+                            </Grid.Clip>
+                            <Image x:Name="HeaderAvatarImage"
+                                   Aspect="AspectFill"
+                                   WidthRequest="44"
+                                   HeightRequest="44" />
+                        </Grid>
+                    </Border>
+
+                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="3">
+                        <Label x:Name="HeaderUsernameLabel"
+                               Text="Élève"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               FontFamily="OpenSansSemibold"
+                               TextColor="#2C3445" />
+
+                        <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                            <Label Text="★"
+                                   TextColor="#E8C857"
+                                   FontSize="15"
+                                   VerticalOptions="Center" />
+                            <Label x:Name="HeaderPointsLabel"
+                                   Text="0 pts"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="#2C3445"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+
+                    <Border Grid.Column="2"
+                            BackgroundColor="#BDB2FF"
+                            Stroke="#2C3445"
+                            StrokeThickness="1.5"
+                            StrokeShape="RoundRectangle 12"
+                            Padding="10, 4"
+                            VerticalOptions="Center">
+                        <Label Text="PALIER 1"
+                               FontSize="11"
+                               FontAttributes="Bold"
+                               TextColor="#2C3445" />
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!-- Bouton central As de pique (aucun texte, centré en largeur et en hauteur, pulsation lente) -->
+            <Grid Grid.Row="1"
+                  HorizontalOptions="Center"
+                  VerticalOptions="Center"
+                  WidthRequest="280"
+                  HeightRequest="280">
+
+                <!-- Halo lumineux de pulsation (respire doucement avec le bouton) -->
+                <Ellipse x:Name="AceButtonHalo"
+                         WidthRequest="220"
+                         HeightRequest="220"
+                         Fill="#BDB2FF"
+                         Opacity="0.25"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center"
+                         InputTransparent="True">
+                    <Ellipse.Shadow>
+                        <Shadow Brush="#6CB4EE" Offset="0, 0" Radius="36" Opacity="0.75" />
+                    </Ellipse.Shadow>
+                </Ellipse>
+
+                <!-- Bouton rond tactile 3D As de pique (cercle parfait vectoriel 360°) -->
+                <Grid x:Name="AceButton"
+                      WidthRequest="180"
+                      HeightRequest="180"
+                      BackgroundColor="Transparent"
+                      HorizontalOptions="Center"
+                      VerticalOptions="Center">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnAceButtonTapped" />
+                        <PointerGestureRecognizer PointerEntered="OnAceButtonPointerEntered"
+                                                  PointerExited="OnAceButtonPointerExited" />
+                    </Grid.GestureRecognizers>
+
+                    <!-- Cercle parfait sans aucune troncature -->
+                    <Ellipse WidthRequest="180"
+                             HeightRequest="180"
+                             Stroke="#2C3445"
+                             StrokeThickness="3.5"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             InputTransparent="False">
+                        <Ellipse.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAceButtonTapped" />
+                        </Ellipse.GestureRecognizers>
+                        <Ellipse.Fill>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="#FFFFFF" Offset="0.0" />
+                                <GradientStop Color="#F4F7FB" Offset="0.45" />
+                                <GradientStop Color="#E2E8F2" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                        <Ellipse.Shadow>
+                            <Shadow Brush="#1E293B" Offset="0, 10" Radius="22" Opacity="0.32" />
+                        </Ellipse.Shadow>
+                    </Ellipse>
+
+                    <!-- Reflet spéculaire 3D en dôme en haut -->
+                    <Border WidthRequest="100"
+                            HeightRequest="24"
+                            StrokeShape="RoundRectangle 12"
+                            StrokeThickness="0"
+                            BackgroundColor="#FFFFFF"
+                            Opacity="0.65"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Start"
+                            Margin="0, 10, 0, 0"
+                            InputTransparent="True" />
+
+                    <!-- Symbole As de pique ♠ sans aucun texte -->
+                    <Label Text="♠"
+                           FontSize="92"
+                           FontAttributes="Bold"
+                           TextColor="#2C3445"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           Margin="0, 0, 0, 4"
+                           InputTransparent="False">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAceButtonTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+            </Grid>
+
+        </Grid>
+
+        <Grid x:Name="ProfileModalOverlay"
+              IsVisible="False"
+              BackgroundColor="#992C3445"
+              Padding="24"
+              InputTransparent="False">
+
+            <Border BackgroundColor="#FFFFFF"
+                    Stroke="#2C3445"
+                    StrokeThickness="2.5"
+                    StrokeShape="RoundRectangle 28"
+                    Padding="22"
+                    VerticalOptions="Center"
+                    MaximumWidthRequest="360"
+                    HorizontalOptions="Center">
+                <Border.Shadow>
+                    <Shadow Brush="#2C3445" Offset="0, 10" Radius="20" Opacity="0.5" />
+                </Border.Shadow>
+
+                <Grid>
+                    <Border x:Name="ModalCloseButton"
+                            WidthRequest="32"
+                            HeightRequest="32"
+                            StrokeShape="RoundRectangle 16"
+                            Stroke="#2C3445"
+                            StrokeThickness="1.5"
+                            BackgroundColor="#F5F7FB"
+                            HorizontalOptions="End"
+                            VerticalOptions="Start"
+                            IsVisible="False">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnModalCloseTapped" />
+                        </Border.GestureRecognizers>
+                        <Label Text="✕"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               TextColor="#2C3445"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                    <VerticalStackLayout Spacing="14">
+
+                        <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                            <Border BackgroundColor="#FCE38A"
+                                    Stroke="#2C3445"
+                                    StrokeThickness="2"
+                                    StrokeShape="RoundRectangle 16"
+                                    WidthRequest="44"
+                                    HeightRequest="44"
+                                    HorizontalOptions="Center"
+                                    Margin="0, 0, 0, 4">
+                                <Label x:Name="ModalBadgeIcon"
+                                       Text="★"
+                                       FontSize="22"
+                                       TextColor="#2C3445"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+
+                            <Label x:Name="ModalTitleLabel"
+                                   Text="Bienvenue !"
+                                   FontSize="22"
+                                   FontAttributes="Bold"
+                                   FontFamily="OpenSansSemibold"
+                                   TextColor="#2C3445"
+                                   HorizontalTextAlignment="Center" />
+
+                            <Label x:Name="ModalSubtitleLabel"
+                                   Text="Créez votre profil pour enregistrer vos points et badges."
+                                   FontSize="12"
+                                   TextColor="#64748B"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                            <Border x:Name="ModalAvatarBorder"
+                                    WidthRequest="100"
+                                    HeightRequest="100"
+                                    StrokeShape="RoundRectangle 50"
+                                    Stroke="#2C3445"
+                                    StrokeThickness="2.5"
+                                    BackgroundColor="#FFFFFF"
+                                    Padding="0"
+                                    HorizontalOptions="Center">
+                                <Grid WidthRequest="94"
+                                      HeightRequest="94"
+                                      HorizontalOptions="Center"
+                                      VerticalOptions="Center">
+                                    <Grid.Clip>
+                                        <EllipseGeometry Center="47,47" RadiusX="47" RadiusY="47" />
+                                    </Grid.Clip>
+                                    <Grid.GestureRecognizers>
+                                        <PanGestureRecognizer PanUpdated="OnAvatarPanUpdated" />
+                                        <PinchGestureRecognizer PinchUpdated="OnAvatarPinchUpdated" />
+                                        <TapGestureRecognizer Tapped="OnAvatarContainerTapped" />
+                                    </Grid.GestureRecognizers>
+
+                                    <Image x:Name="ModalAvatarPreview"
+                                           Aspect="AspectFill"
+                                           WidthRequest="94"
+                                           HeightRequest="94"
+                                           IsVisible="False" />
+
+                                    <VerticalStackLayout x:Name="ModalAvatarPlaceholder"
+                                                         VerticalOptions="Center"
+                                                         HorizontalOptions="Center"
+                                                         Spacing="2">
+                                        <Label Text="📷"
+                                               FontSize="28"
+                                               HorizontalOptions="Center" />
+                                        <Label Text="Ajouter"
+                                               FontSize="11"
+                                               FontAttributes="Bold"
+                                               TextColor="#6CB4EE"
+                                               HorizontalOptions="Center" />
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Border>
+
+                            <Label x:Name="ModalAvatarHintLabel"
+                                   Text="* Photo obligatoire (cliquez pour choisir)"
+                                   FontSize="11"
+                                   TextColor="#64748B"
+                                   HorizontalTextAlignment="Center" />
+
+                            <HorizontalStackLayout x:Name="AvatarToolsLayout"
+                                                   Spacing="8"
+                                                   HorizontalOptions="Center"
+                                                   IsVisible="False">
+                                <Border BackgroundColor="#F5F7FB"
+                                        Stroke="#2C3445"
+                                        StrokeThickness="1.5"
+                                        StrokeShape="RoundRectangle 12"
+                                        WidthRequest="34"
+                                        HeightRequest="30">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnZoomOutTapped" />
+                                    </Border.GestureRecognizers>
+                                    <Label Text="–"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           TextColor="#2C3445"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center" />
+                                </Border>
+
+                                <Border BackgroundColor="#F5F7FB"
+                                        Stroke="#2C3445"
+                                        StrokeThickness="1.5"
+                                        StrokeShape="RoundRectangle 12"
+                                        WidthRequest="34"
+                                        HeightRequest="30">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnZoomInTapped" />
+                                    </Border.GestureRecognizers>
+                                    <Label Text="+"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           TextColor="#2C3445"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center" />
+                                </Border>
+
+                                <Border BackgroundColor="#F5F7FB"
+                                        Stroke="#2C3445"
+                                        StrokeThickness="1.5"
+                                        StrokeShape="RoundRectangle 12"
+                                        WidthRequest="34"
+                                        HeightRequest="30">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnResetCropTapped" />
+                                    </Border.GestureRecognizers>
+                                    <Label Text="⟲"
+                                           FontSize="15"
+                                           FontAttributes="Bold"
+                                           TextColor="#2C3445"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center" />
+                                </Border>
+
+                                <Border BackgroundColor="#6CB4EE"
+                                        Stroke="#2C3445"
+                                        StrokeThickness="1.5"
+                                        StrokeShape="RoundRectangle 12"
+                                        Padding="10, 0"
+                                        HeightRequest="30">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnPickPhotoTapped" />
+                                    </Border.GestureRecognizers>
+                                    <Label Text="Changer"
+                                           FontSize="11"
+                                           FontAttributes="Bold"
+                                           TextColor="#FFFFFF"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center" />
+                                </Border>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="Votre prénom ou pseudo :"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="#2C3445" />
+
+                            <Border BackgroundColor="#F5F7FB"
+                                    Stroke="#2C3445"
+                                    StrokeThickness="2"
+                                    StrokeShape="RoundRectangle 16"
+                                    HeightRequest="48"
+                                    Padding="12, 0">
+                                <Entry x:Name="ModalUsernameEntry"
+                                       Placeholder="Ex: Alex-01"
+                                       TextColor="#2C3445"
+                                       PlaceholderColor="#94A3B8"
+                                       MaxLength="24"
+                                       VerticalOptions="Center" />
+                            </Border>
+
+                            <Label Text="Min. 3 lettres. Lettres, chiffres, - et _ acceptés."
+                                   FontSize="11"
+                                   TextColor="#94A3B8" />
+                        </VerticalStackLayout>
+
+                        <Label x:Name="ModalErrorLabel"
+                               TextColor="#E86379"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               IsVisible="False"
+                               HorizontalTextAlignment="Center" />
+
+                        <Border x:Name="ModalSubmitButton"
+                                HeightRequest="52"
+                                Stroke="#2C3445"
+                                StrokeThickness="2"
+                                StrokeShape="RoundRectangle 22">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Color="#7BC6F7" Offset="0.0" />
+                                    <GradientStop Color="#4A9FE2" Offset="1.0" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Border.Shadow>
+                                <Shadow Brush="#4A9FE2" Offset="0, 6" Radius="12" Opacity="0.45" />
+                            </Border.Shadow>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnSubmitProfileTapped" />
+                                <PointerGestureRecognizer PointerEntered="OnButtonPointerEntered"
+                                                          PointerExited="OnButtonPointerExited" />
+                            </Border.GestureRecognizers>
+                            <Grid>
+                                <Border HeightRequest="4"
+                                        WidthRequest="120"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Start"
+                                        Margin="0, 3, 0, 0"
+                                        BackgroundColor="#FFFFFF"
+                                        Opacity="0.3"
+                                        StrokeShape="RoundRectangle 2"
+                                        StrokeThickness="0"
+                                        InputTransparent="True" />
+                                <Label x:Name="ModalSubmitButtonLabel"
+                                       Text="VALIDER MON PROFIL ➔"
+                                       FontSize="15"
+                                       FontAttributes="Bold"
+                                       FontFamily="OpenSansSemibold"
+                                       TextColor="#FFFFFF"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+        </Grid>
+
+    </Grid>
+
+</ContentPage>

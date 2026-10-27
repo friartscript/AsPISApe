@@ -1,0 +1,97 @@
+# ==============================================================================
+# AsPISApe — .gitignore
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Documentation & Ressources du Projet (Exclusion de GitHub)
+# ------------------------------------------------------------------------------
+# Dossiers volumineux des manuels scannés
+Livre Maths_collège/
+Livre Français_collège/
+Livre_Maths_Seconde/
+Livre_Maths_Premiere/
+Livre_Maths_Première/
+Livre_Maths_Terminale_1/
+Livre_Maths_Terminale_2/
+Livre*/
+
+# Fichiers de directives & référentiels pédagogiques
+PROMPT.md
+DESIGN.md
+SUJETS_MATHS_COLLEGE.md
+SUJETS_FRANCAIS_COLLEGE.md
+SUJETS_MATHS_SECONDE.md
+SUJETS_MATHS_PREMIERE.md
+SUJETS_MATHS_TERMINAL1.md
+SUJETS_MATHS_TERMINAL2.md
+SUJETS_*.md
+
+# ------------------------------------------------------------------------------
+# 2. Sorties de compilation & Build .NET / MAUI
+# ------------------------------------------------------------------------------
+[Bb]in/
+[Oo]bj/
+out/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+ARM/
+ARM64/
+bld/
+[Bb]ld/
+[Bb]inaries/
+publish/
+Generated Files/
+
+# ------------------------------------------------------------------------------
+# 3. Fichiers et caches des IDEs (Visual Studio, VS Code, Rider)
+# ------------------------------------------------------------------------------
+.vs/
+.vscode/
+.idea/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.sln.docstates
+*.ide/
+*.swp
+*~
+
+# ------------------------------------------------------------------------------
+# 4. Données locales utilisateur, runtime & fichiers scratch
+# ------------------------------------------------------------------------------
+profile.json
+avatar_user.png
+scratch_click.wav
+*.log
+*.tmp
+*.temp
+
+# ------------------------------------------------------------------------------
+# 5. Packages et livrables binaires MAUI
+# ------------------------------------------------------------------------------
+AppPackages/
+BundleArtifacts/
+Package.StoreAssociation.xml
+_pkginfo.txt
+*.apk
+*.aab
+*.msix
+*.appx
+*.appxbundle
+*.msixbundle
+
+# ------------------------------------------------------------------------------
+# 6. Fichiers résiduels système (Windows, macOS, Linux)
+# ------------------------------------------------------------------------------
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes

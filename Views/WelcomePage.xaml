@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AsPISApe.Views.WelcomePage"
+             BackgroundColor="#F5F7FB"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid>
+
+        <AbsoluteLayout x:Name="BackgroundCanvas" InputTransparent="True" />
+
+        <Grid RowDefinitions="*, Auto, Auto, *, Auto"
+              Padding="24, 48, 24, 32"
+              MaximumWidthRequest="450"
+              HorizontalOptions="Center">
+
+            <VerticalStackLayout Grid.Row="1" Spacing="16" HorizontalOptions="Center">
+                <Border x:Name="MascotContainer"
+                        BackgroundColor="#FFFFFF"
+                        Stroke="#2C3445"
+                        StrokeThickness="2.5"
+                        StrokeShape="RoundRectangle 22"
+                        WidthRequest="88"
+                        HeightRequest="116"
+                        HorizontalOptions="Center">
+                    <Border.Shadow>
+                        <Shadow Brush="#CBD5E1" Offset="0, 8" Radius="14" Opacity="0.55" />
+                    </Border.Shadow>
+                    <Grid Padding="7, 5">
+                        <VerticalStackLayout HorizontalOptions="Start" VerticalOptions="Start" Spacing="-3">
+                            <Label Text="A"
+                                   FontSize="15"
+                                   FontAttributes="Bold"
+                                   FontFamily="OpenSansSemibold"
+                                   TextColor="#2C3445" />
+                            <Label Text="♠"
+                                   FontSize="13"
+                                   TextColor="#2C3445"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+
+                        <Grid HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label Text="♠"
+                                   FontSize="48"
+                                   FontAttributes="Bold"
+                                   TextColor="#2C3445"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center">
+                                <Label.Shadow>
+                                    <Shadow Brush="#6CB4EE" Offset="1, 2" Radius="4" Opacity="0.45" />
+                                </Label.Shadow>
+                            </Label>
+                        </Grid>
+
+                        <VerticalStackLayout HorizontalOptions="End" VerticalOptions="End" Spacing="-3" Rotation="180">
+                            <Label Text="A"
+                                   FontSize="15"
+                                   FontAttributes="Bold"
+                                   FontFamily="OpenSansSemibold"
+                                   TextColor="#2C3445" />
+                            <Label Text="♠"
+                                   FontSize="13"
+                                   TextColor="#2C3445"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <VerticalStackLayout x:Name="TitleContainer" Spacing="6" HorizontalOptions="Center">
+                    <Label x:Name="TitleLabel"
+                           Text="AsPISApe"
+                           FontSize="44"
+                           FontAttributes="Bold"
+                           FontFamily="OpenSansSemibold"
+                           TextColor="#2C3445"
+                           HorizontalTextAlignment="Center">
+                        <Label.Shadow>
+                            <Shadow Brush="#6CB4EE" Offset="2, 3" Radius="3" Opacity="0.5" />
+                        </Label.Shadow>
+                    </Label>
+
+                    <Label Text="L'app qui te fait devenir un as du PISA"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           FontFamily="OpenSansSemibold"
+                           TextColor="#2C3445"
+                           HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="2" Spacing="10" Margin="0, 16, 0, 0" HorizontalOptions="Center">
+
+                <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
+                    <Border BackgroundColor="#BDB2FF"
+                            Stroke="#2C3445"
+                            StrokeThickness="1.5"
+                            StrokeShape="RoundRectangle 12"
+                            Padding="10, 4">
+                        <Label Text="Maths"
+                               FontSize="11"
+                               FontAttributes="Bold"
+                               TextColor="#2C3445" />
+                    </Border>
+                    <Border BackgroundColor="#FFC6A5"
+                            Stroke="#2C3445"
+                            StrokeThickness="1.5"
+                            StrokeShape="RoundRectangle 12"
+                            Padding="10, 4">
+                        <Label Text="Français"
+                               FontSize="11"
+                               FontAttributes="Bold"
+                               TextColor="#2C3445" />
+                    </Border>
+                </HorizontalStackLayout>
+
+                <Label Text="Progression par paliers adaptatifs • 100% hors-ligne"
+                       FontSize="13"
+                       TextColor="#64748B"
+                       HorizontalTextAlignment="Center" />
+            </VerticalStackLayout>
+
+            <Border x:Name="StartButton"
+                    Grid.Row="4"
+                    HeightRequest="64"
+                    Stroke="#2C3445"
+                    StrokeThickness="2"
+                    StrokeShape="RoundRectangle 24"
+                    Margin="0, 0, 0, 12">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#7BC6F7" Offset="0.0" />
+                        <GradientStop Color="#4A9FE2" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border.Shadow>
+                    <Shadow Brush="#4A9FE2" Offset="0, 8" Radius="16" Opacity="0.45" />
+                </Border.Shadow>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnStartButtonTapped" />
+                    <PointerGestureRecognizer PointerEntered="OnStartButtonPointerEntered"
+                                              PointerExited="OnStartButtonPointerExited" />
+                </Border.GestureRecognizers>
+                <Grid>
+                    <Border HeightRequest="5"
+                            WidthRequest="140"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Start"
+                            Margin="0, 4, 0, 0"
+                            BackgroundColor="#FFFFFF"
+                            Opacity="0.3"
+                            StrokeShape="RoundRectangle 3"
+                            StrokeThickness="0"
+                            InputTransparent="True" />
+
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           Spacing="12">
+                        <Label Text="COMMENCER"
+                               FontSize="17"
+                               FontAttributes="Bold"
+                               FontFamily="OpenSansSemibold"
+                               TextColor="#FFFFFF"
+                               VerticalOptions="Center">
+                            <Label.Shadow>
+                                <Shadow Brush="#2C3445" Offset="0, 1" Radius="2" Opacity="0.4" />
+                            </Label.Shadow>
+                        </Label>
+                        <Border BackgroundColor="#FFFFFF"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 14"
+                                WidthRequest="28"
+                                HeightRequest="28"
+                                VerticalOptions="Center">
+                            <Label Text="➔"
+                                   FontSize="15"
+                                   FontAttributes="Bold"
+                                   TextColor="#4A9FE2"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+                    </HorizontalStackLayout>
+                </Grid>
+            </Border>
+
+        </Grid>
+    </Grid>
+
+</ContentPage>
