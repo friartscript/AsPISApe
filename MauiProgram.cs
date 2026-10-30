@@ -20,8 +20,10 @@ public static class MauiProgram
 		builder.Services.AddSingleton<INavigationService, NavigationService>();
 		builder.Services.AddSingleton<ISoundService, SoundService>();
 		builder.Services.AddSingleton<IProfileService, ProfileService>();
+		builder.Services.AddSingleton<ISubjectService, SubjectService>();
 		builder.Services.AddTransient<WelcomePage>();
 		builder.Services.AddTransient<HomePage>();
+		builder.Services.AddTransient<SubjectsPage>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

@@ -7,8 +7,8 @@
              NavigationPage.HasBackButton="False">
 
     <Grid>
-        <Grid RowDefinitions="Auto, *"
-              Padding="20, 24, 20, 24"
+        <Grid RowDefinitions="Auto, *, Auto"
+              Padding="20, 20, 20, 16"
               MaximumWidthRequest="450"
               HorizontalOptions="Center">
 
@@ -169,6 +169,82 @@
                         </Label.GestureRecognizers>
                     </Label>
                 </Grid>
+            </Grid>
+
+            <!-- ======================================================= -->
+            <!-- ROW 2 : FOOTER BOUTON VERS LA LISTE DES SUJETS          -->
+            <!-- ======================================================= -->
+            <Grid Grid.Row="2"
+                  Margin="0, 10, 0, 4">
+                <Border x:Name="SubjectsListButton"
+                        HeightRequest="60"
+                        Stroke="#2C3445"
+                        StrokeThickness="2"
+                        StrokeShape="RoundRectangle 22">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#FFFFFF" Offset="0.0" />
+                            <GradientStop Color="#F1F5F9" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.Shadow>
+                        <Shadow Brush="#94A3B8" Offset="0, 6" Radius="12" Opacity="0.35" />
+                    </Border.Shadow>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnSubjectsListTapped" />
+                        <PointerGestureRecognizer PointerEntered="OnButtonPointerEntered"
+                                                  PointerExited="OnButtonPointerExited" />
+                    </Border.GestureRecognizers>
+                    <Grid ColumnDefinitions="Auto, *, Auto"
+                          Padding="14, 0"
+                          VerticalOptions="Center">
+
+                        <!-- Pastille icône livres -->
+                        <Border Grid.Column="0"
+                                WidthRequest="42"
+                                HeightRequest="42"
+                                StrokeShape="RoundRectangle 21"
+                                Stroke="#2C3445"
+                                StrokeThickness="1.5"
+                                BackgroundColor="#BDB2FF">
+                            <Label Text="📚"
+                                   FontSize="19"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+
+                        <!-- Libellé & sous-titre -->
+                        <VerticalStackLayout Grid.Column="1"
+                                             Margin="12, 0, 0, 0"
+                                             VerticalOptions="Center"
+                                             Spacing="1">
+                            <Label Text="LISTE DES SUJETS"
+                                   FontSize="15"
+                                   FontAttributes="Bold"
+                                   FontFamily="OpenSansSemibold"
+                                   TextColor="#2C3445" />
+                            <Label Text="Collège • Lycée • Maths &amp; Français"
+                                   FontSize="11"
+                                   TextColor="#64748B" />
+                        </VerticalStackLayout>
+
+                        <!-- Pastille flèche d'accès -->
+                        <Border Grid.Column="2"
+                                WidthRequest="34"
+                                HeightRequest="34"
+                                StrokeShape="RoundRectangle 17"
+                                Stroke="#2C3445"
+                                StrokeThickness="1.5"
+                                BackgroundColor="#6CB4EE">
+                            <Label Text="➔"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="#FFFFFF"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+                    </Grid>
+                </Border>
             </Grid>
 
         </Grid>

@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:AsPISApe.Models"
+             x:Class="AsPISApe.Views.SubjectsPage"
+             BackgroundColor="#F5F7FB"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False">
+
+    <Grid MaximumWidthRequest="450"
+          HorizontalOptions="Center"
+          RowDefinitions="Auto, Auto, *"
+          Padding="16, 16, 16, 12">
+
+        <!-- =================================================================== -->
+        <!-- ROW 0 : EN-TÊTE AVEC RETOUR & TITRE                                  -->
+        <!-- =================================================================== -->
+        <Border Grid.Row="0"
+                BackgroundColor="#FFFFFF"
+                Stroke="#2C3445"
+                StrokeThickness="2"
+                StrokeShape="RoundRectangle 22"
+                Padding="12, 10"
+                Margin="0, 0, 0, 12">
+            <Border.Shadow>
+                <Shadow Brush="#CBD5E1" Offset="0, 4" Radius="8" Opacity="0.5" />
+            </Border.Shadow>
+            <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="10" VerticalOptions="Center">
+
+                <!-- Bouton Retour -->
+                <Border Grid.Column="0"
+                        WidthRequest="40"
+                        HeightRequest="40"
+                        StrokeShape="RoundRectangle 20"
+                        Stroke="#2C3445"
+                        StrokeThickness="1.5"
+                        BackgroundColor="#F5F7FB"
+                        VerticalOptions="Center">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnBackTapped" />
+                        <PointerGestureRecognizer PointerEntered="OnButtonPointerEntered"
+                                                  PointerExited="OnButtonPointerExited" />
+                    </Border.GestureRecognizers>
+                    <Label Text="←"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="#2C3445"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+                </Border>
+
+                <!-- Titre & Compteur -->
+                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="1">
+                    <Label Text="Catalogue des Sujets"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           FontFamily="OpenSansSemibold"
+                           TextColor="#2C3445" />
+                    <Label x:Name="SubjectCountLabel"
+                           Text="Chargement des sujets..."
+                           FontSize="11"
+                           TextColor="#64748B" />
+                </VerticalStackLayout>
+
+                <!-- Bouton Réinitialiser / As de pique -->
+                <Border Grid.Column="2"
+                        WidthRequest="38"
+                        HeightRequest="38"
+                        StrokeShape="RoundRectangle 19"
+                        Stroke="#2C3445"
+                        StrokeThickness="1.5"
+                        BackgroundColor="#FFFFFF"
+                        VerticalOptions="Center">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnResetFiltersTapped" />
+                        <PointerGestureRecognizer PointerEntered="OnButtonPointerEntered"
+                                                  PointerExited="OnButtonPointerExited" />
+                    </Border.GestureRecognizers>
+                    <Label Text="♠"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="#2C3445"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- =================================================================== -->
+        <!-- ROW 1 : PANNEAU DE FILTRAGE ET RECHERCHE                             -->
+        <!-- =================================================================== -->
+        <VerticalStackLayout Grid.Row="1" Spacing="10" Margin="0, 0, 0, 10">
+
+            <!-- Barre de recherche textuelle -->
+            <Border BackgroundColor="#FFFFFF"
+                    Stroke="#2C3445"
+                    StrokeThickness="1.5"
+                    StrokeShape="RoundRectangle 16"
+                    HeightRequest="44"
+                    Padding="12, 0">
+                <Grid ColumnDefinitions="Auto, *" ColumnSpacing="8" VerticalOptions="Center">
+                    <Label Grid.Column="0"
+                           Text="🔍"
+                           FontSize="14"
+                           VerticalOptions="Center" />
+                    <Entry Grid.Column="1"
+                           x:Name="SearchEntry"
+                           Placeholder="Rechercher une notion, un théorème, un mot..."
+                           FontSize="13"
+                           TextColor="#2C3445"
+                           PlaceholderColor="#94A3B8"
+                           TextChanged="OnSearchTextChanged"
+                           VerticalOptions="Center" />
+                </Grid>
+            </Border>
+
+            <!-- Filtres Matière (Tous | Maths | Français) -->
+            <HorizontalStackLayout Spacing="8" HorizontalOptions="Fill">
+                
+                <Border x:Name="BtnDisciplineAll"
+                        HeightRequest="36"
+                        Padding="12, 0"
+                        Stroke="#2C3445"
+                        StrokeThickness="1.5"
+                        StrokeShape="RoundRectangle 14"
+                        BackgroundColor="#6CB4EE">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFilterDisciplineAllTapped" />
+                    </Border.GestureRecognizers>
+                    <Label x:Name="LblDisciplineAll"
+                           Text="Toutes matières"
+                           FontSize="12"
+                           FontAttributes="Bold"
+                           TextColor="#FFFFFF"
+                           VerticalOptions="Center" />
+                </Border>
+
+                <Border x:Name="BtnDisciplineMaths"
+                        HeightRequest="36"
+                        Padding="12, 0"
+                        Stroke="#2C3445"
+                        StrokeThickness="1.5"
+                        StrokeShape="RoundRectangle 14"
+                        BackgroundColor="#FFFFFF">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFilterDisciplineMathsTapped" />
+                    </Border.GestureRecognizers>
+                    <Label x:Name="LblDisciplineMaths"
+                           Text="📐 Maths"
+                           FontSize="12"
+                           FontAttributes="Bold"
+                           TextColor="#2C3445"
+                           VerticalOptions="Center" />
+                </Border>
+
+                <Border x:Name="BtnDisciplineFrancais"
+                        HeightRequest="36"
+                        Padding="12, 0"
+                        Stroke="#2C3445"
+                        StrokeThickness="1.5"
+                        StrokeShape="RoundRectangle 14"
+                        BackgroundColor="#FFFFFF">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFilterDisciplineFrancaisTapped" />
+                    </Border.GestureRecognizers>
+                    <Label x:Name="LblDisciplineFrancais"
+                           Text="📖 Français"
+                           FontSize="12"
+                           FontAttributes="Bold"
+                           TextColor="#2C3445"
+                           VerticalOptions="Center" />
+                </Border>
+
+            </HorizontalStackLayout>
+
+            <!-- Filtres Cycle (Tous | Collège | Lycée) -->
+            <HorizontalStackLayout Spacing="8" HorizontalOptions="Fill">
+
+                <Border x:Name="BtnLevelAll"
+                        HeightRequest="34"
+                        Padding="12, 0"
+                        Stroke="#2C3445"
+                        StrokeThickness="1.5"
+                        StrokeShape="RoundRectangle 14"
+                        BackgroundColor="#2C3445">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFilterLevelAllTapped" />
+                    </Border.GestureRecognizers>
+                    <Label x:Name="LblLevelAll"
+                           Text="Tous cycles"
+                           FontSize="12"
+                           FontAttributes="Bold"
+                           TextColor="#FFFFFF"
+                           VerticalOptions="Center" />
+                </Border>
+
+                <Border x:Name="BtnLevelCollege"
+                        HeightRequest="34"
+                        Padding="12, 0"
+                        Stroke="#2C3445"
+                        StrokeThickness="1.5"
+                        StrokeShape="RoundRectangle 14"
+                        BackgroundColor="#FFFFFF">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFilterLevelCollegeTapped" />
+                    </Border.GestureRecognizers>
+                    <Label x:Name="LblLevelCollege"
+                           Text="🏫 Collège (6e-3e)"
+                           FontSize="12"
+                           FontAttributes="Bold"
+                           TextColor="#2C3445"
+                           VerticalOptions="Center" />
+                </Border>
+
+                <Border x:Name="BtnLevelLycee"
+                        HeightRequest="34"
+                        Padding="12, 0"
+                        Stroke="#2C3445"
+                        StrokeThickness="1.5"
+                        StrokeShape="RoundRectangle 14"
+                        BackgroundColor="#FFFFFF">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFilterLevelLyceeTapped" />
+                    </Border.GestureRecognizers>
+                    <Label x:Name="LblLevelLycee"
+                           Text="🎓 Lycée (2de-Tle)"
+                           FontSize="12"
+                           FontAttributes="Bold"
+                           TextColor="#2C3445"
+                           VerticalOptions="Center" />
+                </Border>
+
+            </HorizontalStackLayout>
+
+            <!-- Filtres Précis de Classe (Scroll horizontal) -->
+            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                <HorizontalStackLayout Spacing="6" Padding="0, 2">
+
+                    <Border x:Name="ChipClassAll"
+                            HeightRequest="28"
+                            Padding="10, 0"
+                            Stroke="#2C3445"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="#E2E8F0">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnClassChipTapped" CommandParameter="Tous" />
+                        </Border.GestureRecognizers>
+                        <Label Text="Toutes classes"
+                               FontSize="11"
+                               FontAttributes="Bold"
+                               TextColor="#2C3445"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                    <Border x:Name="ChipClass6e"
+                            HeightRequest="28"
+                            Padding="10, 0"
+                            Stroke="#2C3445"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="#FFFFFF">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnClassChipTapped" CommandParameter="6e" />
+                        </Border.GestureRecognizers>
+                        <Label Text="6e"
+                               FontSize="11"
+                               TextColor="#2C3445"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                    <Border x:Name="ChipClass5e"
+                            HeightRequest="28"
+                            Padding="10, 0"
+                            Stroke="#2C3445"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="#FFFFFF">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnClassChipTapped" CommandParameter="5e" />
+                        </Border.GestureRecognizers>
+                        <Label Text="5e"
+                               FontSize="11"
+                               TextColor="#2C3445"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                    <Border x:Name="ChipClass4e"
+                            HeightRequest="28"
+                            Padding="10, 0"
+                            Stroke="#2C3445"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="#FFFFFF">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnClassChipTapped" CommandParameter="4e" />
+                        </Border.GestureRecognizers>
+                        <Label Text="4e"
+                               FontSize="11"
+                               TextColor="#2C3445"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                    <Border x:Name="ChipClass3e"
+                            HeightRequest="28"
+                            Padding="10, 0"
+                            Stroke="#2C3445"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="#FFFFFF">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnClassChipTapped" CommandParameter="3e" />
+                        </Border.GestureRecognizers>
+                        <Label Text="3e"
+                               FontSize="11"
+                               TextColor="#2C3445"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                    <Border x:Name="ChipClass2de"
+                            HeightRequest="28"
+                            Padding="10, 0"
+                            Stroke="#2C3445"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="#FFFFFF">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnClassChipTapped" CommandParameter="2de" />
+                        </Border.GestureRecognizers>
+                        <Label Text="Seconde"
+                               FontSize="11"
+                               TextColor="#2C3445"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                    <Border x:Name="ChipClass1re"
+                            HeightRequest="28"
+                            Padding="10, 0"
+                            Stroke="#2C3445"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="#FFFFFF">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnClassChipTapped" CommandParameter="1re Spé" />
+                        </Border.GestureRecognizers>
+                        <Label Text="1re Spé"
+                               FontSize="11"
+                               TextColor="#2C3445"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                    <Border x:Name="ChipClassTleSpe"
+                            HeightRequest="28"
+                            Padding="10, 0"
+                            Stroke="#2C3445"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="#FFFFFF">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnClassChipTapped" CommandParameter="Tle Spé" />
+                        </Border.GestureRecognizers>
+                        <Label Text="Tle Spé"
+                               FontSize="11"
+                               TextColor="#2C3445"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                    <Border x:Name="ChipClassTleExp"
+                            HeightRequest="28"
+                            Padding="10, 0"
+                            Stroke="#2C3445"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="#FFFFFF">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnClassChipTapped" CommandParameter="Tle Expertes" />
+                        </Border.GestureRecognizers>
+                        <Label Text="Tle Expertes"
+                               FontSize="11"
+                               TextColor="#2C3445"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                </HorizontalStackLayout>
+            </ScrollView>
+
+        </VerticalStackLayout>
+
+        <!-- =================================================================== -->
+        <!-- ROW 2 : LISTE DES SUJETS OU ÉTAT VIDE                                -->
+        <!-- =================================================================== -->
+        <Grid Grid.Row="2">
+
+            <!-- Liste des cartes de sujets -->
+            <CollectionView x:Name="SubjectsCollectionView"
+                            SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:SubjectItem">
+                        <Border BackgroundColor="#FFFFFF"
+                                Stroke="#2C3445"
+                                StrokeThickness="1.8"
+                                StrokeShape="RoundRectangle 18"
+                                Padding="14, 12">
+                            <Border.Shadow>
+                                <Shadow Brush="#CBD5E1" Offset="0, 3" Radius="6" Opacity="0.45" />
+                            </Border.Shadow>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnSubjectCardTapped" />
+                            </Border.GestureRecognizers>
+                            <VerticalStackLayout Spacing="6">
+
+                                <!-- Ligne d'en-tête de carte : Badges Matière + Palier -->
+                                <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="6">
+
+                                    <!-- Badge Matière -->
+                                    <Border Grid.Column="0"
+                                            BackgroundColor="{Binding DisciplineColor}"
+                                            Stroke="#2C3445"
+                                            StrokeThickness="1.2"
+                                            StrokeShape="RoundRectangle 10"
+                                            Padding="8, 2">
+                                        <HorizontalStackLayout Spacing="4">
+                                            <Label Text="{Binding DisciplineIcon}"
+                                                   FontSize="11"
+                                                   VerticalOptions="Center" />
+                                            <Label Text="{Binding DisciplineName}"
+                                                   FontSize="11"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#2C3445"
+                                                   VerticalOptions="Center" />
+                                        </HorizontalStackLayout>
+                                    </Border>
+
+                                    <!-- Domaine / Thématique -->
+                                    <Label Grid.Column="1"
+                                           Text="{Binding Domain}"
+                                           FontSize="11"
+                                           FontAttributes="Bold"
+                                           TextColor="#64748B"
+                                           LineBreakMode="TailTruncation"
+                                           VerticalOptions="Center"
+                                           Margin="4, 0" />
+
+                                    <!-- Badge Palier -->
+                                    <Border Grid.Column="2"
+                                            BackgroundColor="#FCE38A"
+                                            Stroke="#2C3445"
+                                            StrokeThickness="1.2"
+                                            StrokeShape="RoundRectangle 10"
+                                            Padding="8, 2">
+                                        <Label Text="{Binding PalierBadge}"
+                                               FontSize="10"
+                                               FontAttributes="Bold"
+                                               TextColor="#2C3445"
+                                               VerticalOptions="Center" />
+                                    </Border>
+
+                                </Grid>
+
+                                <!-- Titre du sujet -->
+                                <Label Text="{Binding Title}"
+                                       FontSize="15"
+                                       FontAttributes="Bold"
+                                       FontFamily="OpenSansSemibold"
+                                       TextColor="#2C3445"
+                                       LineBreakMode="WordWrap" />
+
+                                <!-- Détails / notions clés -->
+                                <Label Text="{Binding Details}"
+                                       FontSize="12"
+                                       TextColor="#475569"
+                                       LineBreakMode="WordWrap" />
+
+                                <!-- Bas de carte : Niveau de classe & Référence manuel -->
+                                <Grid ColumnDefinitions="Auto, *, Auto" Margin="0, 4, 0, 0">
+                                    
+                                    <Border Grid.Column="0"
+                                            BackgroundColor="#F1F5F9"
+                                            Stroke="#94A3B8"
+                                            StrokeThickness="1"
+                                            StrokeShape="RoundRectangle 8"
+                                            Padding="6, 2">
+                                        <Label Text="{Binding ClassLevel}"
+                                               FontSize="11"
+                                               FontAttributes="Bold"
+                                               TextColor="#2C3445" />
+                                    </Border>
+
+                                    <Label Grid.Column="2"
+                                           Text="{Binding ReferencePage}"
+                                           FontSize="11"
+                                           TextColor="#94A3B8"
+                                           HorizontalTextAlignment="End"
+                                           VerticalOptions="Center" />
+
+                                </Grid>
+
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Vue État vide si aucun résultat -->
+            <Border x:Name="EmptyStateView"
+                    IsVisible="False"
+                    BackgroundColor="#FFFFFF"
+                    Stroke="#2C3445"
+                    StrokeThickness="2"
+                    StrokeShape="RoundRectangle 22"
+                    Padding="24"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    MaximumWidthRequest="340">
+                <Border.Shadow>
+                    <Shadow Brush="#CBD5E1" Offset="0, 6" Radius="12" Opacity="0.5" />
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                    <Label Text="🔍"
+                           FontSize="40"
+                           HorizontalOptions="Center" />
+                    <Label Text="Aucun sujet trouvé"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           FontFamily="OpenSansSemibold"
+                           TextColor="#2C3445"
+                           HorizontalTextAlignment="Center" />
+                    <Label Text="Aucune notion ne correspond à vos filtres. Essayez de réinitialiser la recherche."
+                           FontSize="12"
+                           TextColor="#64748B"
+                           HorizontalTextAlignment="Center" />
+                    <Border BackgroundColor="#6CB4EE"
+                            Stroke="#2C3445"
+                            StrokeThickness="1.5"
+                            StrokeShape="RoundRectangle 16"
+                            HeightRequest="42"
+                            Padding="16, 0"
+                            HorizontalOptions="Center"
+                            Margin="0, 8, 0, 0">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnResetFiltersTapped" />
+                        </Border.GestureRecognizers>
+                        <Label Text="RÉINITIALISER LES FILTRES"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               TextColor="#FFFFFF"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+                </VerticalStackLayout>
+            </Border>
+
+        </Grid>
+
+    </Grid>
+
+</ContentPage>

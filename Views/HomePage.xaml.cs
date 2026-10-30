@@ -7,6 +7,7 @@ public partial class HomePage : ContentPage
 	private readonly INavigationService _navigationService;
 	private readonly ISoundService _soundService;
 	private readonly IProfileService _profileService;
+	private readonly ISubjectService _subjectService;
 	private string? _selectedTempPhotoPath;
 	private double _currentScale = 1.0;
 	private double _currentPanX;
@@ -15,12 +16,17 @@ public partial class HomePage : ContentPage
 	private double _panStartY;
 	private CancellationTokenSource? _pulseCts;
 
-	public HomePage(INavigationService navigationService, ISoundService soundService, IProfileService profileService)
+	public HomePage(
+		INavigationService navigationService,
+		ISoundService soundService,
+		IProfileService profileService,
+		ISubjectService? subjectService = null)
 	{
 		InitializeComponent();
 		_navigationService = navigationService;
 		_soundService = soundService;
 		_profileService = profileService;
+		_subjectService = subjectService ?? new SubjectService();
 		NavigationPage.SetHasNavigationBar(this, false);
 		NavigationPage.SetHasBackButton(this, false);
 	}
@@ -383,5 +389,16 @@ public partial class HomePage : ContentPage
 		{
 			await btn.ScaleToAsync(1.0, 100);
 		}
+	}
+
+	private async void OnSubjectsListTapped(object? sender, TappedEventArgs e)
+	{
+		_soundService.PlayClick();
+		if (SubjectsListButton != null)
+		{
+			await SubjectsListButton.ScaleToAsync(0.96, 75);
+			await SubjectsListButton.ScaleToAsync(1.0, 95);
+		}
+		await _navigationService.NavigateToAsync(new SubjectsPage(_navigationService, _soundService, _subjectService));
 	}
 }
