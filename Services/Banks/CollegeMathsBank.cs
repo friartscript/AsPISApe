@@ -35,6 +35,12 @@ public partial class CollegeMathsBank
 			23 => GenerateExpansionAndReduction(),
 			24 => GenerateDoubleDistributivityAndIdentities(),
 			25 => GenerateFactorization(),
+			26 => GenerateFormulasAndCalculus(),
+			27 => GenerateFirstDegreeEquation(),
+			28 => GenerateProductEquation(),
+			29 => GenerateProblemModeling(),
+			30 => GenerateFormulaUsage(),
+			31 => GenerateLiteralProof(),
 			_ => GenerateEuclideanDivision()
 		};
 	}

@@ -533,25 +533,28 @@
 
                     </VerticalStackLayout>
 
-                    <Button x:Name="ModalCloseButton"
-                            Text="✕"
-                            FontSize="16"
-                            FontAttributes="Bold"
-                            TextColor="#2C3445"
+                    <Border x:Name="ModalCloseButton"
                             BackgroundColor="#F5F7FB"
-                            BorderColor="#2C3445"
-                            BorderWidth="2"
-                            CornerRadius="18"
+                            Stroke="#2C3445"
+                            StrokeThickness="2"
+                            StrokeShape="RoundRectangle 18"
                             WidthRequest="36"
                             HeightRequest="36"
-                            MinimumWidthRequest="36"
-                            MinimumHeightRequest="36"
-                            Padding="0"
                             HorizontalOptions="End"
                             VerticalOptions="Start"
-                            ZIndex="50"
-                            IsVisible="False"
-                            Clicked="OnModalCloseClicked" />
+                            ZIndex="100"
+                            IsVisible="False">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnModalCloseTapped" />
+                        </Border.GestureRecognizers>
+                        <Label Text="✕"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="#2C3445"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               InputTransparent="True" />
+                    </Border>
                 </Grid>
             </Border>
         </Grid>
@@ -689,23 +692,26 @@
 
                     </VerticalStackLayout>
 
-                    <Button Text="✕"
-                            FontSize="16"
-                            FontAttributes="Bold"
-                            TextColor="#2C3445"
-                            BackgroundColor="#F5F7FB"
-                            BorderColor="#2C3445"
-                            BorderWidth="2"
-                            CornerRadius="18"
+                    <Border BackgroundColor="#F5F7FB"
+                            Stroke="#2C3445"
+                            StrokeThickness="2"
+                            StrokeShape="RoundRectangle 18"
                             WidthRequest="36"
                             HeightRequest="36"
-                            MinimumWidthRequest="36"
-                            MinimumHeightRequest="36"
-                            Padding="0"
                             HorizontalOptions="End"
                             VerticalOptions="Start"
-                            ZIndex="50"
-                            Clicked="OnCloseDonationModalClicked" />
+                            ZIndex="100">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCloseDonationModalTapped" />
+                        </Border.GestureRecognizers>
+                        <Label Text="✕"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="#2C3445"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               InputTransparent="True" />
+                    </Border>
                 </Grid>
             </Border>
         </Grid>

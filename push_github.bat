@@ -34,7 +34,7 @@ git diff-index --quiet HEAD -- 2>nul
 if %errorlevel% equ 0 (
     echo [INFO] Aucun changement detecte depuis le dernier commit.
 ) else (
-    git commit -m "Docs: Inscription regle absolue de modularite stricte (< 300 lignes par fichier) dans PROMPT.md, LOGIQUE.md, ETAPES.md et ARCHITECTURE.md"
+    git commit -m "Feat(Banks): Ajout Lot A.6 (Sujets 26 a 31 Formules, Equations 1er degre, Equations produits, Problemes PISA) en 3 fichiers modulaires < 200 lignes"
     if %errorlevel% equ 0 (
         echo [OK] Commit effectue avec succes !
     ) else (
