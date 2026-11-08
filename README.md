@@ -1,130 +1,87 @@
 # 🎓 AsPISApe — L'app qui te fait devenir un as du PISA
 
-> *« L'app qui te fait devenir un as du PISA »*
+<p align="center">
+  <strong>« L'app qui te fait devenir un as du PISA »</strong>
+</p>
 
-**AsPISApe** est une application ludo-éducative multiplateforme d'apprentissage, d'entraînement et d'évaluation continue en **Mathématiques** et en **Français** (compréhension de l'écrit), conçue pour faire progresser les apprenants vers les standards d'excellence des épreuves **PISA**.
-
-Son logo officiel et sa mascotte arborent l'**As de pique (`♠`)**, symbole d'excellence et carte maîtresse de l'apprenant.
-
-Développée en **C# avec .NET MAUI**, l'application cible en priorité les supports mobiles (**Android APK**) et ordinateurs (**Windows .exe**).
-
----
-
-## 🚀 Caractéristiques Clés
-
-- **Progression par Paliers Adaptatifs** : Positionnement précis du niveau réel de l'apprenant à travers des étapes successives vers la maîtrise PISA.
-- **Format 9:16 Portrait Forcé** : L'affichage est strictement verrouillé au ratio vertical 9:16 sur toutes les plateformes (mode portrait exclusif sur mobile Android, dimensions fenêtrées verrouillées à 450×800 sur PC Windows). L'application ne bascule jamais en 16:9 paysage.
-- **Gestionnaire de Transitions Fluides (FadeIn / FadeOut)** : Toutes les navigations entre écrans sont orchestrées par un service dédié avec fondu enchaîné doux et dynamique.
-- **100% Autonome (Zéro Backend)** : Fonctionne intégralement hors-ligne, aucune connexion Internet ni serveur distant n'est requis.
-- **Mémoire Interne Locale** : Sauvegarde embarquée du palier atteint, des notions maîtrisées, des scores et de l'historique complet des réponses.
-- **Univers Tactile & Pastel** : Interface cartoon 3D inspirée de l'énergie des jeux mobiles modernes (style Supercell) avec une palette pastel douce, contrastée et reposante.
+<p align="center">
+  <img src="https://img.shields.io/badge/.NET_MAUI-10.0-512BD4?logo=dotnet&logoColor=white" alt=".NET MAUI 10" />
+  <img src="https://img.shields.io/badge/Plateformes-Android_%7C_Windows-blue?logo=android&logoColor=white" alt="Plateformes" />
+  <img src="https://img.shields.io/badge/Mode-100%25_Hors--Ligne-success" alt="100% Hors-Ligne" />
+  <img src="https://img.shields.io/badge/Confidentialit%C3%A9-Z%C3%A9ro_Tracking-brightgreen" alt="Zéro Tracking" />
+  <img src="https://img.shields.io/badge/Format-Portrait_9:16-orange" alt="Format 9:16" />
+</p>
 
 ---
 
-## 🏗️ Architecture du Projet
+## 🌟 Présentation
 
-Le projet respecte les principes de **Clean Architecture** et de **Responsabilité Unique (SRP)** avec séparation stricte des logiques :
+**AsPISApe** est l'application d'entraînement réflexe qui transforme l'apprentissage des **Mathématiques** et du **Français** en un jeu captivant et gratifiant. Conçue pour hisser les élèves vers l'excellence des évaluations internationales **PISA**, elle réunit le meilleur de la pédagogie et des jeux mobiles modernes.
 
-```text
-AsPISApe/
-├── Models/                         # Structures de données pures
-│   └── UserProfile.cs              # Modèle de profil apprenant (pseudo, chemin photo, score)
-├── Services/                       # Moteurs logiques et services transverses
-│   ├── INavigationService.cs       # Contrat d'orchestration de la navigation
-│   ├── NavigationService.cs        # Gestionnaire de transitions animées FadeIn / FadeOut
-│   ├── ISoundService.cs            # Contrat global de synthèse et gestion des effets sonores
-│   ├── SoundService.cs             # Moteur audio procédural C# 100% natif (zéro fichier externe)
-│   ├── IProfileService.cs          # Contrat de persistance locale du profil utilisateur
-│   └── ProfileService.cs           # Gestionnaire de stockage local (JSON, photo, score avec espaces)
-├── Views/                          # Écrans et interfaces XAML
-│   ├── WelcomePage.xaml (.cs)      # Page d'accueil : pluie de particules, mascotte carte As de pique, bouton Commencer
-│   └── HomePage.xaml (.cs)         # Écran Home : en-tête profil persistant, bouton central rond As de pique pulsant, modale profil
-├── Platforms/                      # Adaptations natives
-│   ├── Android/                    # MainActivity verrouillée en ScreenOrientation.Portrait
-│   └── Windows/                    # Configuration native Windows App SDK / WinUI 3 (fenêtre verrouillée 450x800)
-├── Resources/                      # Ressources graphiques partagées
-│   ├── Fonts/                      # Polices vectorielles (OpenSans)
-│   ├── Styles/                     # Dictionnaires de ressources épurés (Colors.xaml, Styles.xaml)
-│   ├── AppIcon/ & Splash/          # Icônes et écrans de lancement pastel
-│   └── Images/ & Raw/              # Médias et fichiers embarqués
-├── App.xaml (.cs)                  # Point de contrôle du ratio 9:16 (fenêtre 450x800) et pile de navigation
-├── MauiProgram.cs                  # Enregistrement des services (IoC / DI) et configuration de l'application
-└── AsPISApe.csproj                 # Déclaration multi-cibles .NET 10 sans dépendances inutiles
+Guidé par l'**As de pique (`♠`)**, symbole d'excellence et carte maîtresse de ta réussite, relève des défis stimulants à ton rythme, partout et sans aucune connexion Internet !
+
+---
+
+## ✨ Pourquoi tu vas adorer AsPISApe
+
+### ⚡ Des Sessions Éclair de 90 Secondes
+Fini les devoirs interminables ! Chaque session se compose de **5 questions en crescendo** :
+1. **Échauffement Français** : pour entrer en douceur dans la session.
+2. **Maths Réflexe** : du calcul mental vif et direct.
+3. **Mixte PISA** : un court scénario de la vie réelle mêlant lecture et déduction chiffrée.
+4. **Maîtrise** : la question clé pour valider tes compétences.
+5. **Question Boss (Points ×3)** : le grand défi pour marquer un maximum d'XP !
+
+### 💡 L'Anti-Sèche Bienveillante
+Un doute sur une question ? Pas de panique ! L'icône ampoule **💡** t'aide sans te pénaliser :
+- **Niveau 1** : un rappel synthétique de la règle ou de la formule clé.
+- **Niveau 2 (50/50)** : deux mauvaises réponses sont effacées pour t'aider à trancher.
+- *Garantie zéro frustration* : tu marques toujours au minimum 20 % des points pour valoriser ton effort !
+
+### 🏆 Une Progression Palpitante (Style Supercell 3D)
+- **18 Micro-Rangs à gravir** : franchis les 6 Paliers fondamentaux et débloque 3 étoiles par palier (`★ ☆ ☆`).
+- **Rangs de Cartes à Jouer** : commence en *Valet de Trèfle ♣*, passe *Dame de Carreau ♦*, deviens *Roi de Cœur ♥* et décroche enfin le rang légendaire d'**As de Pique ♠** !
+- **Flammes Quotidiennes (Streak)** : joue chaque jour pour entretenir ta série et faire briller ta flamme (`🔥`).
+
+### 🤝 Défie tes Amis Hors-Ligne (Code Défi)
+Pas besoin d'Internet ni de créer de compte en ligne pour jouer à plusieurs :
+- À la fin d'une session, génère ton **Code Défi** unique (ex: `PISA-8F2B`).
+- Partage-le en un clic dans ta story Instagram, sur Snapchat ou par message.
+- Tes amis entrent ce code dans leur application et affrontent **exactement la même série de questions** pour tenter de battre ton record !
+
+### 🛡️ 100 % Autonome, Respectueux & Privé
+- **Zéro connexion Internet requise** : fonctionne parfaitement dans les transports, en voyage ou en zone blanche.
+- **Zéro inscription, zéro mot de passe, zéro tracking** : tes données, ta photo et tes scores restent stockés exclusivement sur ton appareil.
+- **Zéro publicité invasive** : une concentration maximale sur ton plaisir d'apprendre.
+
+### 🎨 Un Univers Tactile & Doux au Format Smartphone
+- **Design Pastel & Cartoon 3D** : volumes galbés, textures douces et contrastes reposants pour les yeux.
+- **Format 9:16 Vertical Strict** : pensé pour une prise en main ergonomique au smartphone (et en fenêtre calibrée 450×800 sur ordinateur).
+- **Sons Doux & Naturels** : retours sonores feutrés (marimba doux, tintements pastel, fanfares de victoire) créés sans fichiers audio agressifs.
+
+---
+
+## 🎯 Comment Jouer ?
+
+```
+ 1. Choisis ton pseudo et personnalise ton avatar 3D.
+ 2. Tape sur le grand As de Pique au centre de l'écran.
+ 3. Réponds aux 5 questions du crescendo en moins de 90 secondes.
+ 4. Utilise l'Anti-sèche si tu as besoin d'un coup de pouce.
+ 5. Admire ton score, empoche ton XP et partage ton Code Défi !
 ```
 
-### Détail des Modules
+---
 
-1. **`Services/ProfileService`** :
-   - Persistance 100% autonome et hors-ligne du profil apprenant dans le stockage interne de l'appareil (`profile.json` et photo copiée localement sous `avatar_user.png`).
-   - Sauvegarde sécurisée sans verrouillage de fichier (évite toute violation de partage lors de la mise à jour du profil avec la même image).
-   - Gestion des coordonnées de recadrage d'avatar : niveau de zoom (`AvatarScale`) et décalages panoramiques (`AvatarPanX`, `AvatarPanY`).
-   - Validation stricte et sécurisée du pseudonyme : non vide, 3 à 24 caractères, caractères autorisés (alphanumérique, tirets, underscores), exclusion ferme des balises ou chevrons d'injection (`<` et `>`).
-   - Formatage conforme des points avec séparateurs d'espaces : `"0"`, `"1 000"`, `"10 000"`, `"1 000 000"`.
-   - Initialisation du score à 0 point pour tout nouvel utilisateur.
+## 📱 Disponibilité & Téléchargement
 
-2. **`Services/SoundService`** :
-   - Moteur audio procédural C# 100% natif, autonome et sans aucun fichier audio externe (.wav/.mp3).
-   - Synthèse acoustique douce avec rampe d'attaque progressive en cosinus (zéro craquement), harmoniques chaudes (timbre marimba/goutte d'eau) et atténuation exponentielle feutrée.
-   - Catalogue de sons doux disponibles :
-     - `PlayHover()` : *Goutte d'eau feutrée* (920➔800 Hz, 38 ms, 22% vol) — survol délicat de souris.
-     - `PlayClick()` : *Pop boisé marimba* (540➔420 Hz, 65 ms, 38% vol) — validation tactile douce et immédiate.
-     - `PlaySelect()` : *Tintement pastel* (660➔780 Hz, 50 ms, 30% vol) — sélection de case/option.
-     - `PlaySuccess()` : *Carillon céleste* (arpège majeur 3 notes Do-Mi-Sol : 523, 659, 784 Hz, 240 ms) — bonne réponse.
-     - `PlayError()` : *Note feutrée* (290➔220 Hz, 130 ms, 32% vol) — erreur non-punitive et rassurante.
-     - `PlayLevelUp()` : *Fanfare pastel* (arpège 4 notes Do-Mi-Sol-Do : 523, 659, 784, 1046 Hz, 320 ms) — palier franchi.
-     - `PlayPageTurn()` : *Glissando feutré* (360➔240 Hz, 80 ms, 20% vol) — changement d'écran soyeux.
-   - Lecture asynchrone ultra-fluide via `System.Media.SoundPlayer` pré-chargé en mémoire vive sur Windows et `Android.Media.AudioTrack` PCM 16-bit + retour haptique sur Android.
-   - Accessible partout via `ISoundService` ou l'API statique globale (`SoundService.Click()`, `SoundService.Hover()`, etc.).
-
-3. **`Services/NavigationService`** :
-   - Reçoit la référence de la pile de navigation de l'application (`INavigation`).
-   - `NavigateToAsync(Page target)` : Déclenche l'estompage progressif de la page active (`FadeToAsync(0, 160)`), insère la nouvelle page à opacité nulle, puis applique le fondu d'apparition (`FadeToAsync(1, 220)`).
-   - `NavigateBackAsync()` : Effectue le retour en arrière avec le même fondu enchaîné propre.
-   - Protégé contre les doubles-clics concurrents via un verrou d'état `_isNavigating`.
-
-4. **`Views/WelcomePage`** :
-   - **Pluie animée dynamique en arrière-plan** : Moteur de particules organiques et fluides (60 fps) où chaque élément possède sa propre vitesse, sa phase de départ et son amplitude de dérive sinusoïdale (trajectoires courbes non-rectilignes). Les éléments ne tombent jamais en bloc. Dès qu'un symbole franchit le bas de l'écran, il est immédiatement supprimé de la mémoire/canvas et un nouvel élément est généré au sommet avec une syllabe française ou une formule mathématique aléatoire, une couleur pastel dédiée et une taille propre.
-   - **Logo & Titre** : Animation élastique à l'ouverture (*spring scale & bounce*), mascotte sous forme de carte à jouer **As de pique** (`A♠`), titre imposant "AsPISApe" et slogan officiel "L'app qui te fait devenir un as du PISA".
-   - **Bouton d'action unifié** : Composant unique galbé (`RoundRectangle 24`) avec dégradé pastel vertical (`#7BC6F7` vers `#4A9FE2`), liseré de brillance supérieure, ombre colorée diffuse (`#4A9FE2`) et retour tactile immédiat (`ScaleToAsync(0.96)`).
-
-5. **`Views/HomePage`** :
-   - **En-tête de profil universel** : Avatar circulaire avec la photo de l'apprenant (recadrée, centrée et zoomée), pseudonyme en typographie cartoon sombre, badge de palier ("PALIER 1") et capsule de points avec étoile dorée (affichant `"0 pts"` au départ puis `"1 000"`, `"10 000"`, `"1 000 000"`).
-   - **Bouton central As de pique (`♠`)** :
-     - Bouton rond tactile 3D sans aucun texte, centré parfaitement en largeur et en hauteur.
-     - Animation de pulsation lente et continue (*breathing pulse* à 60 fps) accompagnée d'un halo lumineux respirant (`AceButtonHalo`).
-     - Cercle vectoriel parfait à 360° avec liseré contrasté `#2C3445`, dégradé pastel doux et As de pique en relief (`#2C3445` avec ombre pastel `#6CB4EE`).
-     - Déclenchement d'un son procédural net et franc au clic (`SoundService.PlayClick()`) et effet d'enfoncement élastique tactile (`ScaleTo(0.92)`).
-     - Aucun bouton direct Maths ou Français ni bouton de retour, centrage total de l'attention sur la carte maîtresse.
-   - **Modale de profil bi-mode (Création & Édition)** :
-     - *Première visite* : S'affiche automatiquement à la première ouverture ("Bienvenue !"), création obligatoire avec pseudonyme et photo, bouton de fermeture masqué.
-     - *Édition / Clic sur l'avatar du header* : Ouvre l'éditeur de profil ("Modifier mon profil") avec bouton de fermeture "✕", pré-remplissage du pseudonyme et de la photo actuelle, et possibilité de modifier le pseudo sans erreur.
-     - *Éditeur d'avatar interactif (Zoom & Pan)* : Permet de déplacer l'image par glisser-déposer (pan avec la souris ou au doigt), de zoomer avec les gestes tactiles (pinch) ou les boutons dédiés (`–` et `+`), de réinitialiser le cadrage (`⟲`) et de changer de cliché (`Changer`).
-
-    - **Bouton Footer — Liste des sujets** :
-      - Situé en bas de l'écran d'accueil (`Grid.Row="2"`), galbé (`RoundRectangle 22`), contour `#2C3445` (2px), dégradé clair et ombre portée douce.
-      - Pastille violette avec icône `📚`, libellé cartoon en gras `LISTE DES SUJETS`, sous-titre `Collège • Lycée • Maths & Français` et puce d'accès `➔`.
-      - Effet sonore au survol (`PlayHover()`), son franc au clic (`PlayClick()`), animation tactile d'enfoncement (`ScaleToAsync(0.96)`), menant vers la page `SubjectsPage` avec fondu enchaîné doux via `NavigationService`.
-
-6. **`Views/SubjectsPage` (Catalogue & Tri des Sujets)** :
-   - **En-tête de page** : Bouton retour `←` (retour fluide vers l'accueil), titre "Catalogue des Sujets", compteur dynamique du nombre de notions trouvées et bouton de réinitialisation `♠`.
-   - **Barre de recherche instantanée** : Champ de saisie réactif filtrant immédiatement les notions, chapitres et mots-clés (ex : *Pythagore, dérivée, fractions, fonctions, verbe...*).
-   - **Filtres par Matière** : Sélecteur tactile 3 états : `Toutes matières`, `📐 Maths` (pastille Lavande pastel `#BDB2FF`), `📖 Français` (pastille Pêche pastel `#FFC6A5`).
-   - **Filtres par Cycle d'études** : `Tous cycles`, `🏫 Collège (6e-3e)`, `🎓 Lycée (2de-Tle)`.
-   - **Filtres par Classe** : Sélecteur adaptatif avec disposition fluide (`FlexLayout Wrap="Wrap"`) garantissant un affichage complet sans aucune troncature, avec filtrage contextuel selon le cycle sélectionné.
-   - **Affichage des Cartes de Sujets** :
-     - Défilement fluide sans aucune instabilité graphique (`ScrollView` vertical natif).
-     - Cartes blanches galbées avec contour ardoise `#2C3445`, badge de discipline, domaine d'apprentissage, palier PISA (Palier 1 à 5), titre de la notion, descriptif pédagogique et niveau de classe.
-     - État vide agréable avec illustration de loupe `🔍` et bouton de réinitialisation si aucun sujet ne correspond aux critères.
-
-7. **`Services/SubjectService` & `Models/SubjectItem`** :
-   - Modèle pur de données découplé de l'interface utilisateur (titre, domaine, détails, niveau, palier).
-   - Fournit l'intégralité des sujets du cycle secondaire (Collège 6e-3e et Lycée 2de-Tle en Mathématiques et en Français).
-   - Moteur de filtrage multicritères combiné (discipline, cycle, classe et texte libre).
+| Plateforme | Format | Description |
+| :--- | :---: | :--- |
+| **Android** | Fichier `.apk` | Installation directe sur smartphone et tablette (Android 9.0 et supérieur). |
+| **Windows** | Fichier `.exe` | Application de bureau fluide, fenêtrée au format smartphone 9:16 (Windows 10 / 11). |
 
 ---
 
-## 🎯 Cibles de Déploiement
+## ⚖️ Licence
 
-- **Android (APK)** : Format portrait mobile 9:16 natif.
-- **Windows (.exe)** : Application de bureau WinUI 3 calibrée et verrouillée en ratio 9:16 (450×800).
-
+Ce projet est distribué sous licence open-source libre. Développé avec passion pour l'égalité des chances et la réussite scolaire de tous les apprenants.

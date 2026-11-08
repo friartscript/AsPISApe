@@ -6,6 +6,7 @@ public class CollegeExerciseBank
 {
 	private readonly Random _random = new();
 	private readonly CollegeMathsBank _mathsBank = new();
+	private readonly CollegeFrenchBank _frenchBank = new();
 
 	public ExerciseQuestion GenerateQuestion(string discipline, int slot)
 	{
@@ -34,10 +35,10 @@ public class CollegeExerciseBank
 	{
 		return slot switch
 		{
-			1 => _mathsBank.GenerateEuclideanDivision(),
-			2 => _mathsBank.GenerateMultiplesAndDivisors(),
-			3 => _mathsBank.GeneratePrimeNumbersAndFactors(),
-			4 => CreatePercentageQuestion(),
+			1 => _mathsBank.GenerateQuestionBySubject(_random.Next(1, 20)),
+			2 => _mathsBank.GenerateQuestionBySubject(_random.Next(1, 20)),
+			3 => _mathsBank.GenerateFractionMultiplicationDivision(),
+			4 => _mathsBank.GenerateScientificNotation(),
 			_ => CreatePythagorasQuestion()
 		};
 	}
@@ -46,11 +47,11 @@ public class CollegeExerciseBank
 	{
 		return slot switch
 		{
-			1 => CreateGrammarClassQuestion(),
-			2 => CreateHomophonesQuestion(),
+			1 => _frenchBank.GenerateQuestionBySubject(_random.Next(1, 11)),
+			2 => _frenchBank.GenerateQuestionBySubject(_random.Next(23, 38)),
 			3 => CreateSubjectVerbAgreementQuestion(),
-			4 => CreateVerbConjugationQuestion(),
-			_ => CreateGrammarFunctionQuestion()
+			4 => _frenchBank.GenerateQuestionBySubject(_random.Next(11, 23)),
+			_ => _frenchBank.GenerateQuestionBySubject(_random.Next(23, 38))
 		};
 	}
 
