@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AsPISApe.Views.SessionPlayPage"
+             BackgroundColor="#F5F7FB"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False">
+
+    <Grid>
+        <Grid RowDefinitions="Auto, *, Auto"
+              Padding="18, 16, 18, 16"
+              MaximumWidthRequest="450"
+              HorizontalOptions="Center">
+
+            <Border Grid.Row="0"
+                    BackgroundColor="#FFFFFF"
+                    Stroke="#2C3445"
+                    StrokeThickness="2"
+                    StrokeShape="RoundRectangle 22"
+                    Padding="14, 10"
+                    Margin="0, 0, 0, 12">
+                <Border.Shadow>
+                    <Shadow Brush="#CBD5E1" Offset="0, 4" Radius="8" Opacity="0.5" />
+                </Border.Shadow>
+                <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="10" VerticalOptions="Center">
+
+                    <Border Grid.Column="0"
+                            WidthRequest="38"
+                            HeightRequest="38"
+                            StrokeShape="RoundRectangle 19"
+                            Stroke="#2C3445"
+                            StrokeThickness="1.5"
+                            BackgroundColor="#F5F7FB"
+                            VerticalOptions="Center">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAbandonTapped" />
+                        </Border.GestureRecognizers>
+                        <Label Text="✕"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#2C3445"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <Label x:Name="QuestionProgressLabel"
+                                   Text="Question 1/5"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   FontFamily="OpenSansSemibold"
+                                   TextColor="#2C3445" />
+                            <Label Grid.Column="1"
+                                   x:Name="TimerLabel"
+                                   Text="⏱️ 01:30"
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   TextColor="#64748B" />
+                        </Grid>
+                        <Border HeightRequest="8"
+                                BackgroundColor="#E2E8F0"
+                                Stroke="#2C3445"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 4"
+                                Padding="1">
+                            <Border x:Name="ProgressBarFill"
+                                    HorizontalOptions="Start"
+                                    WidthRequest="40"
+                                    BackgroundColor="#6CB4EE"
+                                    StrokeShape="RoundRectangle 3"
+                                    StrokeThickness="0" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <Border Grid.Column="2"
+                            BackgroundColor="#FFE8D6"
+                            Stroke="#2C3445"
+                            StrokeThickness="1.5"
+                            StrokeShape="RoundRectangle 12"
+                            Padding="8, 4"
+                            VerticalOptions="Center">
+                        <HorizontalStackLayout Spacing="3" VerticalOptions="Center">
+                            <Label Text="🔥"
+                                   FontSize="12"
+                                   VerticalOptions="Center" />
+                            <Label x:Name="ComboLabel"
+                                   Text="x1.0"
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   TextColor="#2C3445"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Border>
+
+                </Grid>
+            </Border>
+
+            <ScrollView Grid.Row="1"
+                        VerticalScrollBarVisibility="Never">
+                <VerticalStackLayout Spacing="14" Padding="0, 4, 0, 10">
+
+                    <Border BackgroundColor="#FFFFFF"
+                            Stroke="#2C3445"
+                            StrokeThickness="2"
+                            StrokeShape="RoundRectangle 24"
+                            Padding="16, 14">
+                        <Border.Shadow>
+                            <Shadow Brush="#CBD5E1" Offset="0, 6" Radius="12" Opacity="0.45" />
+                        </Border.Shadow>
+                        <VerticalStackLayout Spacing="10">
+
+                            <Grid ColumnDefinitions="Auto, *, Auto">
+                                <HorizontalStackLayout Grid.Column="0" Spacing="6" VerticalOptions="Center">
+                                    <Border x:Name="DisciplineBadge"
+                                            BackgroundColor="#BDB2FF"
+                                            Stroke="#2C3445"
+                                            StrokeThickness="1.2"
+                                            StrokeShape="RoundRectangle 10"
+                                            Padding="8, 3">
+                                        <Label x:Name="DisciplineLabel"
+                                               Text="📐 Maths"
+                                               FontSize="11"
+                                               FontAttributes="Bold"
+                                               TextColor="#2C3445" />
+                                    </Border>
+                                    <Border BackgroundColor="#F1F5F9"
+                                            Stroke="#CBD5E1"
+                                            StrokeThickness="1"
+                                            StrokeShape="RoundRectangle 10"
+                                            Padding="6, 3">
+                                        <Label x:Name="ClassLevelLabel"
+                                               Text="6e"
+                                               FontSize="11"
+                                               FontAttributes="Bold"
+                                               TextColor="#64748B" />
+                                    </Border>
+                                </HorizontalStackLayout>
+
+                                <Border Grid.Column="2"
+                                        x:Name="AntiSecheButton"
+                                        BackgroundColor="#FCE38A"
+                                        Stroke="#2C3445"
+                                        StrokeThickness="1.8"
+                                        StrokeShape="RoundRectangle 14"
+                                        Padding="10, 4"
+                                        VerticalOptions="Center">
+                                    <Border.Shadow>
+                                        <Shadow Brush="#E8C857" Offset="0, 2" Radius="4" Opacity="0.5" />
+                                    </Border.Shadow>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnAntiSecheTapped" />
+                                    </Border.GestureRecognizers>
+                                    <HorizontalStackLayout Spacing="4" VerticalOptions="Center">
+                                        <Label Text="💡"
+                                               FontSize="13"
+                                               VerticalOptions="Center" />
+                                        <Label Text="Anti-sèche"
+                                               FontSize="11"
+                                               FontAttributes="Bold"
+                                               TextColor="#2C3445"
+                                               VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                </Border>
+                            </Grid>
+
+                            <Label x:Name="QuestionTextLabel"
+                                   Text="Chargement de la question..."
+                                   FontSize="15"
+                                   FontAttributes="Bold"
+                                   FontFamily="OpenSansSemibold"
+                                   TextColor="#2C3445"
+                                   LineHeight="1.2" />
+
+                            <Border x:Name="ExplanationBox"
+                                    IsVisible="False"
+                                    BackgroundColor="#F1F5F9"
+                                    Stroke="#2C3445"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 12"
+                                    Padding="10, 8">
+                                <Label x:Name="ExplanationLabel"
+                                       Text=""
+                                       FontSize="12"
+                                       TextColor="#475569" />
+                            </Border>
+
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <VerticalStackLayout x:Name="ChoicesLayout" Spacing="9" />
+
+                </VerticalStackLayout>
+            </ScrollView>
+
+        </Grid>
+
+        <Grid x:Name="AntiSecheModalOverlay"
+              IsVisible="False"
+              BackgroundColor="#992C3445"
+              Padding="22"
+              InputTransparent="False">
+
+            <Border BackgroundColor="#FFFFFF"
+                    Stroke="#2C3445"
+                    StrokeThickness="2.5"
+                    StrokeShape="RoundRectangle 26"
+                    Padding="20"
+                    VerticalOptions="Center"
+                    MaximumWidthRequest="360"
+                    HorizontalOptions="Center">
+                <Border.Shadow>
+                    <Shadow Brush="#2C3445" Offset="0, 8" Radius="18" Opacity="0.5" />
+                </Border.Shadow>
+
+                <VerticalStackLayout Spacing="12">
+
+                    <Grid ColumnDefinitions="*, Auto">
+                        <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                            <Label Text="💡" FontSize="18" VerticalOptions="Center" />
+                            <Label Text="Anti-Sèche PISA"
+                                   FontSize="17"
+                                   FontAttributes="Bold"
+                                   FontFamily="OpenSansSemibold"
+                                   TextColor="#2C3445"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+
+                        <Border Grid.Column="1"
+                                WidthRequest="30"
+                                HeightRequest="30"
+                                StrokeShape="RoundRectangle 15"
+                                Stroke="#2C3445"
+                                StrokeThickness="1.5"
+                                BackgroundColor="#F5F7FB">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnCloseAntiSecheTapped" />
+                            </Border.GestureRecognizers>
+                            <Label Text="✕"
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   TextColor="#2C3445"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+                    </Grid>
+
+                    <Border BackgroundColor="#FFF9DB"
+                            Stroke="#2C3445"
+                            StrokeThickness="1.5"
+                            StrokeShape="RoundRectangle 16"
+                            Padding="12, 10">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="NIVEAU 1 : RAPPEL DE LA FORMULE (−35 % pts)"
+                                   FontSize="10"
+                                   FontAttributes="Bold"
+                                   TextColor="#92400E" />
+                            <Label x:Name="HintLevel1Label"
+                                   Text=""
+                                   FontSize="13"
+                                   TextColor="#2C3445"
+                                   LineHeight="1.2" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border x:Name="HintLevel2Card"
+                            BackgroundColor="#FEF3C7"
+                            Stroke="#2C3445"
+                            StrokeThickness="1.5"
+                            StrokeShape="RoundRectangle 16"
+                            Padding="12, 10"
+                            IsVisible="False">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="NIVEAU 2 : COUP DE POUCE 50/50 (−60 % pts)"
+                                   FontSize="10"
+                                   FontAttributes="Bold"
+                                   TextColor="#92400E" />
+                            <Label x:Name="HintLevel2Label"
+                                   Text=""
+                                   FontSize="13"
+                                   TextColor="#2C3445"
+                                   LineHeight="1.2" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border x:Name="UnlockLevel2Button"
+                            HeightRequest="42"
+                            BackgroundColor="#FCE38A"
+                            Stroke="#2C3445"
+                            StrokeThickness="1.5"
+                            StrokeShape="RoundRectangle 14">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnUnlockLevel2Tapped" />
+                        </Border.GestureRecognizers>
+                        <Label Text="Éliminer 2 mauvais choix 50/50 (−60 %)"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               TextColor="#2C3445"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                    <Border HeightRequest="44"
+                            BackgroundColor="#6CB4EE"
+                            Stroke="#2C3445"
+                            StrokeThickness="1.8"
+                            StrokeShape="RoundRectangle 16">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCloseAntiSecheTapped" />
+                        </Border.GestureRecognizers>
+                        <Label Text="J'AI COMPRIS, JE JOUE ➔"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               FontFamily="OpenSansSemibold"
+                               TextColor="#FFFFFF"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </Grid>
+
+</ContentPage>

@@ -21,9 +21,15 @@ public static class MauiProgram
 		builder.Services.AddSingleton<ISoundService, SoundService>();
 		builder.Services.AddSingleton<IProfileService, ProfileService>();
 		builder.Services.AddSingleton<ISubjectService, SubjectService>();
+		builder.Services.AddSingleton<IExerciseBankService, ExerciseBankService>();
+		builder.Services.AddSingleton<ISessionGenerator, SessionGenerator>();
+		builder.Services.AddSingleton<IAntiSecheService, AntiSecheService>();
+		builder.Services.AddSingleton<IChallengeService, ChallengeService>();
 		builder.Services.AddTransient<WelcomePage>();
 		builder.Services.AddTransient<HomePage>();
 		builder.Services.AddTransient<SubjectsPage>();
+		builder.Services.AddTransient<SessionPlayPage>();
+		builder.Services.AddTransient<SessionSummaryPage>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

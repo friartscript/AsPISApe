@@ -1,39 +1,37 @@
 @echo off
-chcp 65001 > nul
-title Envoi AsPISApe vers GitHub
+chcp 65001 >nul
+cd /d "e:\Documents perso\0000Site internet\DEV\AsPISApe"
 
-echo ===================================================
-echo       ENVOI DU PROJET AsPISApe VERS GITHUB
-echo ===================================================
+echo ==========================================
+echo    AsPISApe - Commit ^& Push vers GitHub
+echo ==========================================
 echo.
 
-cd /d "%~dp0"
+git branch -M main
+git remote remove origin 2>nul
+git remote add origin https://github.com/friartscript/AsPISApe.git
 
-echo Verification de l'etat des fichiers...
-git status -s
-echo.
-
-set /p MSG="Message du commit (Appuyez sur Entree pour message auto) : "
-if "%MSG%"=="" set MSG=Mise a jour projet AsPISApe (%date% %time%)
+echo 1. Verification des fichiers...
+git status --short
 
 echo.
-echo [1/3] Ajout des modifications...
+echo 2. Ajout des fichiers modifies...
 git add .
 
-echo [2/3] Validation locale (commit)...
-git commit -m "%MSG%"
-
-echo [3/3] Envoi vers GitHub (origin main)...
-git push origin main
+echo.
+echo 3. Creation du commit...
+git commit -m "Feat: Header enrichi, moteur de jeu 5 questions crescendo et anti-seche"
 
 echo.
-echo ===================================================
-if %ERRORLEVEL% equ 0 (
-    echo [SUCCES] Projet synchronise sur GitHub avec succes !
+echo 4. Envoi vers GitHub (branche main)...
+git push -u origin main
+
+echo.
+if %errorlevel% equ 0 (
+    echo [SUCCES] Projet envoye sur GitHub avec succes !
 ) else (
-    echo [INFO/ATTENTION] Termine (verifiez les messages ci-dessus).
+    echo [INFO] Si une invite d'authentification GitHub s'ouvre, validez-la.
 )
-echo ===================================================
+
 echo.
 pause
-

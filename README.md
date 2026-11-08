@@ -100,6 +100,27 @@ AsPISApe/
      - *Édition / Clic sur l'avatar du header* : Ouvre l'éditeur de profil ("Modifier mon profil") avec bouton de fermeture "✕", pré-remplissage du pseudonyme et de la photo actuelle, et possibilité de modifier le pseudo sans erreur.
      - *Éditeur d'avatar interactif (Zoom & Pan)* : Permet de déplacer l'image par glisser-déposer (pan avec la souris ou au doigt), de zoomer avec les gestes tactiles (pinch) ou les boutons dédiés (`–` et `+`), de réinitialiser le cadrage (`⟲`) et de changer de cliché (`Changer`).
 
+    - **Bouton Footer — Liste des sujets** :
+      - Situé en bas de l'écran d'accueil (`Grid.Row="2"`), galbé (`RoundRectangle 22`), contour `#2C3445` (2px), dégradé clair et ombre portée douce.
+      - Pastille violette avec icône `📚`, libellé cartoon en gras `LISTE DES SUJETS`, sous-titre `Collège • Lycée • Maths & Français` et puce d'accès `➔`.
+      - Effet sonore au survol (`PlayHover()`), son franc au clic (`PlayClick()`), animation tactile d'enfoncement (`ScaleToAsync(0.96)`), menant vers la page `SubjectsPage` avec fondu enchaîné doux via `NavigationService`.
+
+6. **`Views/SubjectsPage` (Catalogue & Tri des Sujets)** :
+   - **En-tête de page** : Bouton retour `←` (retour fluide vers l'accueil), titre "Catalogue des Sujets", compteur dynamique du nombre de notions trouvées et bouton de réinitialisation `♠`.
+   - **Barre de recherche instantanée** : Champ de saisie réactif filtrant immédiatement les notions, chapitres et mots-clés (ex : *Pythagore, dérivée, fractions, fonctions, verbe...*).
+   - **Filtres par Matière** : Sélecteur tactile 3 états : `Toutes matières`, `📐 Maths` (pastille Lavande pastel `#BDB2FF`), `📖 Français` (pastille Pêche pastel `#FFC6A5`).
+   - **Filtres par Cycle d'études** : `Tous cycles`, `🏫 Collège (6e-3e)`, `🎓 Lycée (2de-Tle)`.
+   - **Filtres par Classe** : Sélecteur adaptatif avec disposition fluide (`FlexLayout Wrap="Wrap"`) garantissant un affichage complet sans aucune troncature, avec filtrage contextuel selon le cycle sélectionné.
+   - **Affichage des Cartes de Sujets** :
+     - Défilement fluide sans aucune instabilité graphique (`ScrollView` vertical natif).
+     - Cartes blanches galbées avec contour ardoise `#2C3445`, badge de discipline, domaine d'apprentissage, palier PISA (Palier 1 à 5), titre de la notion, descriptif pédagogique et niveau de classe.
+     - État vide agréable avec illustration de loupe `🔍` et bouton de réinitialisation si aucun sujet ne correspond aux critères.
+
+7. **`Services/SubjectService` & `Models/SubjectItem`** :
+   - Modèle pur de données découplé de l'interface utilisateur (titre, domaine, détails, niveau, palier).
+   - Fournit l'intégralité des sujets du cycle secondaire (Collège 6e-3e et Lycée 2de-Tle en Mathématiques et en Français).
+   - Moteur de filtrage multicritères combiné (discipline, cycle, classe et texte libre).
+
 ---
 
 ## 🎯 Cibles de Déploiement
