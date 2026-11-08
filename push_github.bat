@@ -1,53 +1,60 @@
 @echo off
+setlocal EnableDelayedExpansion
 chcp 65001 >nul
-cd /d "e:\Documents perso\0000Site internet\DEV\AsPISApe"
+cd /d "%~dp0"
 
 echo ======================================================================
-echo    AsPISApe — Synchronisation Git & Envoi vers GitHub (Branche main)
+echo    AsPISApe - Synchronisation Git et Envoi vers GitHub
 echo ======================================================================
 echo.
 
-git --version >nul 2>&1
-if %errorlevel% neq 0 (
-    echo [ERREUR] Git n'est pas installe ou n'est pas accessible dans le PATH.
-    echo.
-    pause
-    exit /b 1
+where git >nul 2>&1
+if !ERRORLEVEL! equ 0 goto GitFound
+
+if exist "C:\Program Files\Git\cmd\git.exe" (
+    set "PATH=C:\Program Files\Git\cmd;!PATH!"
+    goto GitFound
+)
+if exist "C:\Program Files\Git\bin\git.exe" (
+    set "PATH=C:\Program Files\Git\bin;!PATH!"
+    goto GitFound
+)
+if exist "%LOCALAPPDATA%\Programs\Git\cmd\git.exe" (
+    set "PATH=%LOCALAPPDATA%\Programs\Git\cmd;!PATH!"
+    goto GitFound
+)
+if exist "C:\Program Files (x86)\Git\cmd\git.exe" (
+    set "PATH=C:\Program Files (x86)\Git\cmd;!PATH!"
+    goto GitFound
 )
 
-echo [1/5] Configuration de la branche et du remote origin...
+echo [ERREUR] Git n'a pas ete trouve sur votre machine ou dans le PATH.
+echo Veuillez installer Git for Windows : https://git-scm.com/download/win
+echo.
+pause
+exit /b 1
+
+:GitFound
+echo [1/4] Configuration de la branche principale et du remote origin...
 git branch -M main
 git remote remove origin 2>nul
 git remote add origin https://github.com/friartscript/AsPISApe.git
 
 echo.
-echo [2/5] Verification des fichiers modifies...
-git status --short
-
-echo.
-echo [3/5] Indexation des fichiers...
+echo [2/4] Indexation des fichiers...
 git add .
 
 echo.
-echo [4/5] Creation du commit...
-git diff-index --quiet HEAD -- 2>nul
-if %errorlevel% equ 0 (
-    echo [INFO] Aucun changement detecte depuis le dernier commit.
-) else (
-    git commit -m "Feat(Banks): Ajout Lot A.11 (Sujets 47 a 55 Echelles, Vitesses, Fonctions affines et lineaires) en 2 fichiers modulaires < 130 lignes"
-    if %errorlevel% equ 0 (
-        echo [OK] Commit effectue avec succes !
-    ) else (
-        echo [ATTENTION] Erreur ou commit deja a jour.
-    )
-)
+echo [3/4] Creation du commit...
+set "COMMIT_MSG=feat: Avancement AsPISApe - Banques d'exercices et modules"
+git commit -m "%COMMIT_MSG%"
 
 echo.
-echo [5/5] Envoi vers GitHub (git push -u origin main)...
+echo [4/4] Envoi vers GitHub (git push -u origin main)...
 git push -u origin main
 
 echo.
-if %errorlevel% equ 0 (
+if !ERRORLEVEL! equ 0 (
     echo ======================================================================
     echo  [SUCCES] Le code et la documentation sont a jour sur GitHub !
     echo ======================================================================
@@ -58,8 +65,6 @@ if %errorlevel% equ 0 (
     echo  veuillez autoriser l'acces a votre compte GitHub friartscript.
     echo ======================================================================
 )
-
-copy /y "%~f0" "C:\Users\kevin\Desktop\push_AsPISApe.bat" >nul 2>&1
 
 echo.
 pause

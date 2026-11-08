@@ -90,19 +90,19 @@ Pas besoin d'Internet ni de créer de compte en ligne pour jouer à plusieurs :
 Si vous appréciez l'application et souhaitez encourager son développement (nouveaux paliers Lycée, enrichissement des banques d'exercices), vous pouvez offrir un café au créateur :
 
 <p align="center">
-  <a href="https://ko-fi.com/" target="_blank">
+  <a href="https://ko-fi.com/friartscript" target="_blank">
     <img src="https://img.shields.io/badge/Ko--fi-Offrir_un_café-FF5E5B?logo=ko-fi&logoColor=white" alt="Ko-fi" />
   </a>
   &nbsp;
-  <a href="https://www.buymeacoffee.com/" target="_blank">
+  <a href="https://buymeacoffee.com/friartscript" target="_blank">
     <img src="https://img.shields.io/badge/Buy_Me_A_Coffee-Soutenir-FFDD00?logo=buy-me-a-coffee&logoColor=black" alt="Buy Me A Coffee" />
   </a>
   &nbsp;
-  <a href="https://fr.tipeee.com/" target="_blank">
+  <a href="https://fr.tipeee.com/friartscript" target="_blank">
     <img src="https://img.shields.io/badge/Tipeee-Pourboire-E00034?logo=tipeee&logoColor=white" alt="Tipeee" />
   </a>
   &nbsp;
-  <a href="https://www.patreon.com/" target="_blank">
+  <a href="https://www.patreon.com/cw/friartscript" target="_blank">
     <img src="https://img.shields.io/badge/Patreon-Abonnement-FF424D?logo=patreon&logoColor=white" alt="Patreon" />
   </a>
 </p>

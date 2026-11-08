@@ -36,11 +36,11 @@ public class CollegeExerciseBank
 	{
 		return slot switch
 		{
-			1 => _mathsBank.GenerateQuestionBySubject(_random.Next(1, 7)),
-			2 => _mathsBank.GenerateQuestionBySubject(_random.Next(7, 18)),
-			3 => _mathsBank.GenerateQuestionBySubject(_random.Next(18, 26)),
-			4 => _mathsBank.GenerateQuestionBySubject(_random.Next(26, 35)),
-			_ => _mathsBank.GenerateQuestionBySubject(_random.Next(35, 56))
+			1 => _mathsBank.GenerateQuestionBySubject(_random.Next(1, 21)),
+			2 => _mathsBank.GenerateQuestionBySubject(_random.Next(21, 46)),
+			3 => _mathsBank.GenerateQuestionBySubject(_random.Next(46, 71)),
+			4 => _mathsBank.GenerateQuestionBySubject(_random.Next(71, 93)),
+			_ => _mathsBank.GenerateQuestionBySubject(_random.Next(93, 112))
 		};
 	}
 
@@ -51,8 +51,8 @@ public class CollegeExerciseBank
 			1 => _frenchBank.GenerateQuestionBySubject(_random.Next(1, 11)),
 			2 => _frenchBank.GenerateQuestionBySubject(_random.Next(11, 23)),
 			3 => _frenchBank.GenerateQuestionBySubject(_random.Next(23, 38)),
-			4 => _frenchBank.GenerateQuestionBySubject(_random.Next(38, 46)),
-			_ => _frenchBank.GenerateQuestionBySubject(_random.Next(1, 46))
+			4 => _frenchBank.GenerateQuestionBySubject(_random.Next(38, 53)),
+			_ => _frenchBank.GenerateQuestionBySubject(_random.Next(53, 69))
 		};
 	}
 
