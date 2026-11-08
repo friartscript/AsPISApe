@@ -41,6 +41,21 @@ public partial class CollegeMathsBank
 			29 => GenerateProblemModeling(),
 			30 => GenerateFormulaUsage(),
 			31 => GenerateLiteralProof(),
+			32 => GenerateAlgorithmQuestion(),
+			33 => GenerateVariableQuestion(),
+			34 => GenerateGeometricTraceQuestion(),
+			35 => GenerateFrequencyQuestion(),
+			36 => GenerateFrequencyQuestion(),
+			37 => GenerateRangeQuestion(),
+			38 => GenerateMeanQuestion(),
+			39 => GenerateMedianQuestion(),
+			40 => GenerateBasicProbabilityQuestion(),
+			41 => GenerateComplementaryProbabilityQuestion(),
+			42 => GenerateBasicProbabilityQuestion(),
+			43 => GenerateFourthProportionalQuestion(),
+			44 => GenerateFourthProportionalQuestion(),
+			45 => GenerateRatioQuestion(),
+			46 => _random.Next(2) == 0 ? GeneratePercentageDiscountQuestion() : GeneratePercentageIncreaseQuestion(),
 			_ => GenerateEuclideanDivision()
 		};
 	}

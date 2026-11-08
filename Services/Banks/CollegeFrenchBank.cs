@@ -47,6 +47,14 @@ public partial class CollegeFrenchBank
 			35 => GenerateAuxiliariesConjugationQuestion(),
 			36 => GenerateFirstSecondGroupConjugationQuestion(),
 			37 => GenerateThirdGroupIrregularConjugationQuestion(),
+			38 => GeneratePastParticipleEtreQuestion(),
+			39 => GeneratePastParticipleAvoirQuestion(),
+			40 => GenerateAdjectiveAgreementQuestion(),
+			41 => GenerateSubjectVerbAgreementQuestion(),
+			42 => GenerateToutAgreementQuestion(),
+			43 => GenerateLeurAgreementQuestion(),
+			44 => GenerateBasicHomophonesQuestion(),
+			45 => GenerateDemonstrativeHomophonesQuestion(),
 			_ => GenerateWordClassQuestion()
 		};
 	}

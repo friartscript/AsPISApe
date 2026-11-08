@@ -34,7 +34,7 @@ git diff-index --quiet HEAD -- 2>nul
 if %errorlevel% equ 0 (
     echo [INFO] Aucun changement detecte depuis le dernier commit.
 ) else (
-    git commit -m "Feat(Banks): Ajout Lot A.6 (Sujets 26 a 31 Formules, Equations 1er degre, Equations produits, Problemes PISA) en 3 fichiers modulaires < 200 lignes"
+    git commit -m "Feat(Banks): Ajout Lots A.7 a A.10 (Sujets 32 a 46 Algorithmes, Statistiques, Probabilites, Ratios, Pourcentages) en 4 fichiers modulaires < 160 lignes"
     if %errorlevel% equ 0 (
         echo [OK] Commit effectue avec succes !
     ) else (

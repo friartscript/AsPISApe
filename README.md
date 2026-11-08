@@ -79,6 +79,7 @@ Pas besoin d'Internet ni de créer de compte en ligne pour jouer à plusieurs :
 | :--- | :---: | :--- |
 | **Android** | Fichier `.apk` | Installation directe sur smartphone et tablette (Android 9.0 et supérieur). |
 | **Windows** | Fichier `.exe` | Application de bureau fluide, fenêtrée au format smartphone 9:16 (Windows 10 / 11). |
+| **iOS (Apple)** | Fichier `.ipa` / TestFlight | Application native pour iPhone et iPad (iOS 15.0 et supérieur, format portrait verrouillé). |
 
 ---
 
