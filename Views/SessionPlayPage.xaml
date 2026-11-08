@@ -196,10 +196,14 @@
         </Grid>
 
         <Grid x:Name="AntiSecheModalOverlay"
-              IsVisible="False"
-              BackgroundColor="#992C3445"
-              Padding="22"
-              InputTransparent="False">
+              IsVisible="False">
+            <BoxView BackgroundColor="#992C3445"
+                     HorizontalOptions="Fill"
+                     VerticalOptions="Fill">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnCloseAntiSecheTapped" />
+                </BoxView.GestureRecognizers>
+            </BoxView>
 
             <Border BackgroundColor="#FFFFFF"
                     Stroke="#2C3445"
@@ -208,7 +212,8 @@
                     Padding="20"
                     VerticalOptions="Center"
                     MaximumWidthRequest="360"
-                    HorizontalOptions="Center">
+                    HorizontalOptions="Center"
+                    Margin="22">
                 <Border.Shadow>
                     <Shadow Brush="#2C3445" Offset="0, 8" Radius="18" Opacity="0.5" />
                 </Border.Shadow>
@@ -226,23 +231,21 @@
                                    VerticalOptions="Center" />
                         </HorizontalStackLayout>
 
-                        <Border Grid.Column="1"
+                        <Button Grid.Column="1"
+                                Text="✕"
+                                FontSize="14"
+                                FontAttributes="Bold"
+                                TextColor="#2C3445"
+                                BackgroundColor="#F5F7FB"
+                                BorderColor="#2C3445"
+                                BorderWidth="1.5"
+                                CornerRadius="15"
                                 WidthRequest="30"
                                 HeightRequest="30"
-                                StrokeShape="RoundRectangle 15"
-                                Stroke="#2C3445"
-                                StrokeThickness="1.5"
-                                BackgroundColor="#F5F7FB">
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnCloseAntiSecheTapped" />
-                            </Border.GestureRecognizers>
-                            <Label Text="✕"
-                                   FontSize="12"
-                                   FontAttributes="Bold"
-                                   TextColor="#2C3445"
-                                   HorizontalOptions="Center"
-                                   VerticalOptions="Center" />
-                        </Border>
+                                MinimumWidthRequest="30"
+                                MinimumHeightRequest="30"
+                                Padding="0"
+                                Clicked="OnCloseAntiSecheClicked" />
                     </Grid>
 
                     <Border BackgroundColor="#FFF9DB"

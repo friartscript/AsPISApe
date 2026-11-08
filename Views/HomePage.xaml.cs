@@ -167,8 +167,21 @@ public partial class HomePage : ContentPage
 		ProfileModalOverlay.IsVisible = true;
 	}
 
-	private async void OnModalCloseTapped(object? sender, TappedEventArgs e)
+	private async void OnModalCloseClicked(object? sender, EventArgs e)
 	{
+		_soundService.PlayClick();
+		await ProfileModalOverlay.FadeToAsync(0, 160);
+		ProfileModalOverlay.IsVisible = false;
+	}
+
+	private void OnModalCloseTapped(object? sender, TappedEventArgs? e)
+	{
+		OnModalCloseClicked(sender, EventArgs.Empty);
+	}
+
+	private async void OnOverlayBackgroundTapped(object? sender, TappedEventArgs? e)
+	{
+		if (!_profileService.HasProfile()) return;
 		_soundService.PlayClick();
 		await ProfileModalOverlay.FadeToAsync(0, 160);
 		ProfileModalOverlay.IsVisible = false;
@@ -541,6 +554,66 @@ public partial class HomePage : ContentPage
 		if (sender is VisualElement btn)
 		{
 			await btn.ScaleToAsync(1.0, 100);
+		}
+	}
+
+	private const string KofiUrl = "https://ko-fi.com/";
+	private const string BuyMeACoffeeUrl = "https://www.buymeacoffee.com/";
+	private const string TipeeeUrl = "https://fr.tipeee.com/";
+	private const string PatreonUrl = "https://www.patreon.com/";
+
+	private async void OnDonationButtonTapped(object? sender, TappedEventArgs e)
+	{
+		_soundService.PlayClick();
+		DonationModalOverlay.Opacity = 0;
+		DonationModalOverlay.IsVisible = true;
+		await DonationModalOverlay.FadeToAsync(1, 160);
+	}
+
+	private async void OnCloseDonationModalClicked(object? sender, EventArgs e)
+	{
+		_soundService.PlayClick();
+		await DonationModalOverlay.FadeToAsync(0, 120);
+		DonationModalOverlay.IsVisible = false;
+	}
+
+	private void OnCloseDonationModalTapped(object? sender, TappedEventArgs? e)
+	{
+		OnCloseDonationModalClicked(sender, EventArgs.Empty);
+	}
+
+	private async void OnOpenKofiTapped(object? sender, TappedEventArgs e)
+	{
+		_soundService.PlayClick();
+		await OpenExternalLinkAsync(KofiUrl);
+	}
+
+	private async void OnOpenBuyMeACoffeeTapped(object? sender, TappedEventArgs e)
+	{
+		_soundService.PlayClick();
+		await OpenExternalLinkAsync(BuyMeACoffeeUrl);
+	}
+
+	private async void OnOpenTipeeeTapped(object? sender, TappedEventArgs e)
+	{
+		_soundService.PlayClick();
+		await OpenExternalLinkAsync(TipeeeUrl);
+	}
+
+	private async void OnOpenPatreonTapped(object? sender, TappedEventArgs e)
+	{
+		_soundService.PlayClick();
+		await OpenExternalLinkAsync(PatreonUrl);
+	}
+
+	private static async Task OpenExternalLinkAsync(string url)
+	{
+		try
+		{
+			await Launcher.Default.OpenAsync(new Uri(url));
+		}
+		catch
+		{
 		}
 	}
 }

@@ -34,7 +34,7 @@ git diff-index --quiet HEAD -- 2>nul
 if %errorlevel% equ 0 (
     echo [INFO] Aucun changement detecte depuis le dernier commit.
 ) else (
-    git commit -m "Docs: Refonte complete du README.md (vitrine utilisateur GitHub) et externalisation technique privee"
+    git commit -m "Docs: Inscription regle absolue de modularite stricte (< 300 lignes par fichier) dans PROMPT.md, LOGIQUE.md, ETAPES.md et ARCHITECTURE.md"
     if %errorlevel% equ 0 (
         echo [OK] Commit effectue avec succes !
     ) else (

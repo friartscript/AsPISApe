@@ -345,10 +345,15 @@ public partial class SessionPlayPage : ContentPage
 		}
 	}
 
-	private void OnCloseAntiSecheTapped(object? sender, TappedEventArgs e)
+	private void OnCloseAntiSecheClicked(object? sender, EventArgs e)
 	{
 		_soundService.PlayClick();
 		AntiSecheModalOverlay.IsVisible = false;
+	}
+
+	private void OnCloseAntiSecheTapped(object? sender, TappedEventArgs? e)
+	{
+		OnCloseAntiSecheClicked(sender, EventArgs.Empty);
 	}
 
 	private async void OnAbandonTapped(object? sender, TappedEventArgs e)

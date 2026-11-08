@@ -7,7 +7,7 @@
              NavigationPage.HasBackButton="False">
 
     <Grid>
-        <Grid RowDefinitions="Auto, *"
+        <Grid RowDefinitions="Auto, *, Auto"
               Padding="20, 20, 20, 16"
               MaximumWidthRequest="450"
               HorizontalOptions="Center">
@@ -244,13 +244,46 @@
                 </Grid>
             </Grid>
 
+            <Border Grid.Row="2"
+                    BackgroundColor="#FFFFFF"
+                    Stroke="#2C3445"
+                    StrokeThickness="2"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="14, 8"
+                    Margin="0, 6, 0, 0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End">
+                <Border.Shadow>
+                    <Shadow Brush="#CBD5E1" Offset="0, 3" Radius="8" Opacity="0.4" />
+                </Border.Shadow>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnDonationButtonTapped" />
+                    <PointerGestureRecognizer PointerEntered="OnButtonPointerEntered"
+                                              PointerExited="OnButtonPointerExited" />
+                </Border.GestureRecognizers>
+                <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                    <Label Text="☕" FontSize="15" VerticalOptions="Center" />
+                    <Label Text="FAIRE UN DON"
+                           FontSize="12"
+                           FontAttributes="Bold"
+                           FontFamily="OpenSansSemibold"
+                           TextColor="#2C3445"
+                           VerticalOptions="Center" />
+                    <Label Text="💛" FontSize="12" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+            </Border>
+
         </Grid>
 
         <Grid x:Name="ProfileModalOverlay"
-              IsVisible="False"
-              BackgroundColor="#992C3445"
-              Padding="24"
-              InputTransparent="False">
+              IsVisible="False">
+            <BoxView BackgroundColor="#992C3445"
+                     HorizontalOptions="Fill"
+                     VerticalOptions="Fill">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnOverlayBackgroundTapped" />
+                </BoxView.GestureRecognizers>
+            </BoxView>
 
             <Border BackgroundColor="#FFFFFF"
                     Stroke="#2C3445"
@@ -259,33 +292,13 @@
                     Padding="22"
                     VerticalOptions="Center"
                     MaximumWidthRequest="360"
-                    HorizontalOptions="Center">
+                    HorizontalOptions="Center"
+                    Margin="24">
                 <Border.Shadow>
                     <Shadow Brush="#2C3445" Offset="0, 10" Radius="20" Opacity="0.5" />
                 </Border.Shadow>
 
                 <Grid>
-                    <Border x:Name="ModalCloseButton"
-                            WidthRequest="32"
-                            HeightRequest="32"
-                            StrokeShape="RoundRectangle 16"
-                            Stroke="#2C3445"
-                            StrokeThickness="1.5"
-                            BackgroundColor="#F5F7FB"
-                            HorizontalOptions="End"
-                            VerticalOptions="Start"
-                            IsVisible="False">
-                        <Border.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnModalCloseTapped" />
-                        </Border.GestureRecognizers>
-                        <Label Text="✕"
-                               FontSize="13"
-                               FontAttributes="Bold"
-                               TextColor="#2C3445"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center" />
-                    </Border>
-
                     <VerticalStackLayout Spacing="14">
 
                         <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
@@ -519,6 +532,180 @@
                         </Border>
 
                     </VerticalStackLayout>
+
+                    <Button x:Name="ModalCloseButton"
+                            Text="✕"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            TextColor="#2C3445"
+                            BackgroundColor="#F5F7FB"
+                            BorderColor="#2C3445"
+                            BorderWidth="2"
+                            CornerRadius="18"
+                            WidthRequest="36"
+                            HeightRequest="36"
+                            MinimumWidthRequest="36"
+                            MinimumHeightRequest="36"
+                            Padding="0"
+                            HorizontalOptions="End"
+                            VerticalOptions="Start"
+                            ZIndex="50"
+                            IsVisible="False"
+                            Clicked="OnModalCloseClicked" />
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid x:Name="DonationModalOverlay"
+              IsVisible="False">
+            <BoxView BackgroundColor="#992C3445"
+                     HorizontalOptions="Fill"
+                     VerticalOptions="Fill">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnCloseDonationModalTapped" />
+                </BoxView.GestureRecognizers>
+            </BoxView>
+
+            <Border BackgroundColor="#FFFFFF"
+                    Stroke="#2C3445"
+                    StrokeThickness="2.5"
+                    StrokeShape="RoundRectangle 28"
+                    Padding="22"
+                    VerticalOptions="Center"
+                    MaximumWidthRequest="380"
+                    HorizontalOptions="Center"
+                    Margin="24">
+                <Border.Shadow>
+                    <Shadow Brush="#2C3445" Offset="0, 10" Radius="20" Opacity="0.5" />
+                </Border.Shadow>
+
+                <Grid>
+                    <VerticalStackLayout Spacing="14">
+
+                        <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                            <Border BackgroundColor="#FCE38A"
+                                    Stroke="#2C3445"
+                                    StrokeThickness="2"
+                                    StrokeShape="RoundRectangle 16"
+                                    WidthRequest="44"
+                                    HeightRequest="44"
+                                    HorizontalOptions="Center"
+                                    Margin="0, 0, 0, 4">
+                                <Label Text="☕"
+                                       FontSize="22"
+                                       TextColor="#2C3445"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+
+                            <Label Text="Soutenir AsPISApe"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   FontFamily="OpenSansSemibold"
+                                   TextColor="#2C3445"
+                                   HorizontalTextAlignment="Center" />
+
+                            <Label Text="Projet bénévole, sans pub et 100% hors-ligne. Choisissez votre plateforme de soutien :"
+                                   FontSize="11"
+                                   TextColor="#64748B"
+                                   HorizontalTextAlignment="Center" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Spacing="9">
+
+                            <Border BackgroundColor="#FFF1F0"
+                                    Stroke="#2C3445"
+                                    StrokeThickness="1.8"
+                                    StrokeShape="RoundRectangle 16"
+                                    Padding="12, 10">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnOpenKofiTapped" />
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="10" VerticalOptions="Center" InputTransparent="True">
+                                    <Label Grid.Column="0" Text="☕" FontSize="20" VerticalOptions="Center" />
+                                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="1">
+                                        <Label Text="Ko-fi" FontSize="13" FontAttributes="Bold" TextColor="#2C3445" />
+                                        <Label Text="Don ponctuel par carte ou PayPal (0% frais)" FontSize="10" TextColor="#64748B" />
+                                    </VerticalStackLayout>
+                                    <Label Grid.Column="2" Text="➔" FontSize="14" FontAttributes="Bold" TextColor="#2C3445" VerticalOptions="Center" />
+                                </Grid>
+                            </Border>
+
+                            <Border BackgroundColor="#FFFBEA"
+                                    Stroke="#2C3445"
+                                    StrokeThickness="1.8"
+                                    StrokeShape="RoundRectangle 16"
+                                    Padding="12, 10">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnOpenBuyMeACoffeeTapped" />
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="10" VerticalOptions="Center" InputTransparent="True">
+                                    <Label Grid.Column="0" Text="💛" FontSize="20" VerticalOptions="Center" />
+                                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="1">
+                                        <Label Text="Buy Me a Coffee" FontSize="13" FontAttributes="Bold" TextColor="#2C3445" />
+                                        <Label Text="Offrir un café en 1 clic" FontSize="10" TextColor="#64748B" />
+                                    </VerticalStackLayout>
+                                    <Label Grid.Column="2" Text="➔" FontSize="14" FontAttributes="Bold" TextColor="#2C3445" VerticalOptions="Center" />
+                                </Grid>
+                            </Border>
+
+                            <Border BackgroundColor="#FFF0F3"
+                                    Stroke="#2C3445"
+                                    StrokeThickness="1.8"
+                                    StrokeShape="RoundRectangle 16"
+                                    Padding="12, 10">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnOpenTipeeeTapped" />
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="10" VerticalOptions="Center" InputTransparent="True">
+                                    <Label Grid.Column="0" Text="🎯" FontSize="20" VerticalOptions="Center" />
+                                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="1">
+                                        <Label Text="Tipeee" FontSize="13" FontAttributes="Bold" TextColor="#2C3445" />
+                                        <Label Text="Plateforme de pourboire française" FontSize="10" TextColor="#64748B" />
+                                    </VerticalStackLayout>
+                                    <Label Grid.Column="2" Text="➔" FontSize="14" FontAttributes="Bold" TextColor="#2C3445" VerticalOptions="Center" />
+                                </Grid>
+                            </Border>
+
+                            <Border BackgroundColor="#FFF5F5"
+                                    Stroke="#2C3445"
+                                    StrokeThickness="1.8"
+                                    StrokeShape="RoundRectangle 16"
+                                    Padding="12, 10">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnOpenPatreonTapped" />
+                                </Border.GestureRecognizers>
+                                <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="10" VerticalOptions="Center" InputTransparent="True">
+                                    <Label Grid.Column="0" Text="⭐" FontSize="20" VerticalOptions="Center" />
+                                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="1">
+                                        <Label Text="Patreon" FontSize="13" FontAttributes="Bold" TextColor="#2C3445" />
+                                        <Label Text="Abonnement mensuel de soutien" FontSize="10" TextColor="#64748B" />
+                                    </VerticalStackLayout>
+                                    <Label Grid.Column="2" Text="➔" FontSize="14" FontAttributes="Bold" TextColor="#2C3445" VerticalOptions="Center" />
+                                </Grid>
+                            </Border>
+
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+
+                    <Button Text="✕"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            TextColor="#2C3445"
+                            BackgroundColor="#F5F7FB"
+                            BorderColor="#2C3445"
+                            BorderWidth="2"
+                            CornerRadius="18"
+                            WidthRequest="36"
+                            HeightRequest="36"
+                            MinimumWidthRequest="36"
+                            MinimumHeightRequest="36"
+                            Padding="0"
+                            HorizontalOptions="End"
+                            VerticalOptions="Start"
+                            ZIndex="50"
+                            Clicked="OnCloseDonationModalClicked" />
                 </Grid>
             </Border>
         </Grid>
