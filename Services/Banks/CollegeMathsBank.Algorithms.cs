@@ -11,7 +11,7 @@ public partial class CollegeMathsBank
 		{
 			0 => GenerateLoopIterationQuestion(),
 			1 => GenerateConditionBranchQuestion(),
-			_ => GenerateGeometryTraceQuestion()
+			_ => GenerateGeometricTraceQuestion()
 		};
 	}
 

@@ -40,7 +40,7 @@ public class CollegeExerciseBank
 			2 => _mathsBank.GenerateQuestionBySubject(_random.Next(7, 18)),
 			3 => _mathsBank.GenerateQuestionBySubject(_random.Next(18, 26)),
 			4 => _mathsBank.GenerateQuestionBySubject(_random.Next(26, 35)),
-			_ => _mathsBank.GenerateQuestionBySubject(_random.Next(35, 47))
+			_ => _mathsBank.GenerateQuestionBySubject(_random.Next(35, 56))
 		};
 	}
 

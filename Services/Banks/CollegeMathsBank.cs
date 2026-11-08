@@ -56,6 +56,15 @@ public partial class CollegeMathsBank
 			44 => GenerateFourthProportionalQuestion(),
 			45 => GenerateRatioQuestion(),
 			46 => _random.Next(2) == 0 ? GeneratePercentageDiscountQuestion() : GeneratePercentageIncreaseQuestion(),
+			47 => GeneratePercentMultiplierQuestion(),
+			48 => GenerateScaleQuestion(),
+			49 => GenerateScalingFactorQuestion(),
+			50 => GenerateAverageSpeedConversionQuestion(),
+			51 => GenerateFunctionImageQuestion(),
+			52 => GenerateFunctionAntecedentQuestion(),
+			53 => GenerateLinearVsAffineQuestion(),
+			54 => GenerateFunctionImageQuestion(),
+			55 => GenerateSlopeFromPointsQuestion(),
 			_ => GenerateEuclideanDivision()
 		};
 	}
