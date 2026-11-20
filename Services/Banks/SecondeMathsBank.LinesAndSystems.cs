@@ -48,8 +48,6 @@ public partial class SecondeMathsBank
 	{
 		var m = _random.Next(2, 5);
 		var p = _random.Next(1, 6);
-		var xA = 1;
-		var yA = m + p;
 
 		var correct = $"y = {m}x + {p}";
 		var wrong1 = $"y = {p}x + {m}";

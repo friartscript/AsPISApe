@@ -4,21 +4,39 @@ namespace AsPISApe.Services;
 
 public partial class SubjectService : ISubjectService
 {
-	private static readonly List<SubjectItem> _allSubjects = _collegeMathsSubjects
-		.Concat(_collegeFrenchSubjects)
-		.Concat(_secondeSubjects)
-		.Concat(_premiereSubjects)
-		.Concat(_terminaleSubjects)
-		.ToList();
+	private static List<SubjectItem>? _allSubjectsCache;
+
+	private static List<SubjectItem> GetOrBuildAllSubjects()
+	{
+		if (_allSubjectsCache != null)
+		{
+			return _allSubjectsCache;
+		}
+
+		var list = new List<SubjectItem>(
+			_collegeMathsSubjects.Count +
+			_collegeFrenchSubjects.Count +
+			_secondeSubjects.Count +
+			_premiereSubjects.Count +
+			_terminaleSubjects.Count);
+
+		list.AddRange(_collegeMathsSubjects);
+		list.AddRange(_collegeFrenchSubjects);
+		list.AddRange(_secondeSubjects);
+		list.AddRange(_premiereSubjects);
+		list.AddRange(_terminaleSubjects);
+		_allSubjectsCache = list;
+		return _allSubjectsCache;
+	}
 
 	public IReadOnlyList<SubjectItem> GetAllSubjects()
 	{
-		return _allSubjects.AsReadOnly();
+		return GetOrBuildAllSubjects().AsReadOnly();
 	}
 
 	public IReadOnlyList<SubjectItem> FilterSubjects(string? discipline, string? level, string? classLevel, string? searchQuery)
 	{
-		IEnumerable<SubjectItem> query = _allSubjects;
+		IEnumerable<SubjectItem> query = GetOrBuildAllSubjects();
 
 		if (!string.IsNullOrWhiteSpace(discipline) && !discipline.Equals("Tous", StringComparison.OrdinalIgnoreCase))
 		{

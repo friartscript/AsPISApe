@@ -43,11 +43,11 @@ Un doute sur une question ? Pas de panique ! L'icône ampoule **💡** t'aide sa
 - **Rangs de Cartes à Jouer** : commence en *Valet de Trèfle ♣*, passe *Dame de Carreau ♦*, deviens *Roi de Cœur ♥* et décroche enfin le rang légendaire d'**As de Pique ♠** !
 - **Flammes Quotidiennes (Streak)** : joue chaque jour pour entretenir ta série et faire briller ta flamme (`🔥`).
 
-### 🤝 Défie tes Amis Hors-Ligne (Code Défi)
-Pas besoin d'Internet ni de créer de compte en ligne pour jouer à plusieurs :
-- À la fin d'une session, génère ton **Code Défi** unique (ex: `PISA-8F2B`).
-- Partage-le en un clic dans ta story Instagram, sur Snapchat ou par message.
-- Tes amis entrent ce code dans leur application et affrontent **exactement la même série de questions** pour tenter de battre ton record !
+### 🤝 Partage tes Performances & Défie tes Amis
+Pas besoin d'Internet ni de compte en ligne pour partager tes exploits :
+- À la fin de chaque session, prépare ton message de performance en un clic.
+- Partage ton score, ton chrono et ton combo max dans tes stories (Instagram, Snapchat, WhatsApp, SMS).
+- Défie tes amis pour voir qui décrochera le titre d'As de Pique !
 
 ### 🛡️ 100 % Autonome, Respectueux & Privé
 - **Zéro connexion Internet requise** : fonctionne parfaitement dans les transports, en voyage ou en zone blanche.
@@ -68,7 +68,7 @@ Pas besoin d'Internet ni de créer de compte en ligne pour jouer à plusieurs :
  2. Tape sur le grand As de Pique au centre de l'écran.
  3. Réponds aux 5 questions du crescendo en moins de 90 secondes.
  4. Utilise l'Anti-sèche si tu as besoin d'un coup de pouce.
- 5. Admire ton score, empoche ton XP et partage ton Code Défi !
+ 5. Admire ton score, empoche ton XP et partage tes exploits avec tes amis !
 ```
 
 ---

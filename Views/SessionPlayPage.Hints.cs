@@ -24,6 +24,10 @@ public partial class SessionPlayPage
 		if (_currentIndex >= _questions.Count) return;
 
 		var q = _questions[_currentIndex];
+		if (_hintLevelUsed == 0)
+		{
+			_totalHintsUsed++;
+		}
 		_hintLevelUsed = Math.Max(1, _hintLevelUsed);
 
 		HintLevel1Label.Text = q.HintLevel1;

@@ -1,3 +1,4 @@
+using AsPISApe.Models;
 using AsPISApe.Services;
 
 namespace AsPISApe.Views;
@@ -16,6 +17,7 @@ public partial class SessionSummaryPage : ContentPage
 	private readonly int _score;
 	private readonly int _elapsedSeconds;
 	private readonly double _maxCombo;
+	private readonly int _hintsUsed;
 
 	public SessionSummaryPage(
 		INavigationService navigationService,
@@ -28,7 +30,8 @@ public partial class SessionSummaryPage : ContentPage
 		int score,
 		int elapsedSeconds,
 		double maxCombo,
-		IChallengeService? challengeService = null)
+		IChallengeService? challengeService = null,
+		int hintsUsed = 0)
 	{
 		InitializeComponent();
 		_navigationService = navigationService;
@@ -43,6 +46,7 @@ public partial class SessionSummaryPage : ContentPage
 		_score = score;
 		_elapsedSeconds = elapsedSeconds;
 		_maxCombo = maxCombo;
+		_hintsUsed = hintsUsed;
 
 		NavigationPage.SetHasNavigationBar(this, false);
 		NavigationPage.SetHasBackButton(this, false);
@@ -92,15 +96,19 @@ public partial class SessionSummaryPage : ContentPage
 		CelebrationSubtitleLabel.Text = "Chaque essai renforce tes compétences PISA.";
 	}
 
-	private void ConfigurePalierProgress()
+	private void ConfigurePalierProgress(UserProfile? profile = null)
 	{
-		var profile = _profileService.GetProfile();
+		profile ??= _profileService.GetProfile();
 		var palier = profile?.Palier ?? 1;
 		var stars = profile?.StarsDisplay ?? "★ ☆ ☆";
+		var currentXp = profile?.CurrentPalierXp ?? 0;
+		var targetXp = profile?.TargetPalierXp ?? 300;
 
-		SummaryPalierLabel.Text = $"Progression Palier {palier}";
+		SummaryPalierLabel.Text = $"Palier {palier} : {currentXp} / {targetXp} XP";
 		SummaryStarsLabel.Text = stars;
-		SummaryProgressBar.WidthRequest = 100;
+
+		var ratio = Math.Clamp((double)currentXp / Math.Max(1, targetXp), 0.08, 1.0);
+		SummaryProgressBar.WidthRequest = Math.Max(12, 180 * ratio);
 	}
 
 	private static string FormatSeconds(int totalSec)
@@ -113,9 +121,18 @@ public partial class SessionSummaryPage : ContentPage
 	private async Task SaveScoreAndSoundAsync()
 	{
 		_soundService.PlaySuccess();
-		if (_score > 0)
+		var updated = await _profileService.RecordSessionResultAsync(
+			_score,
+			_correctCount,
+			_totalQuestions,
+			_elapsedSeconds,
+			_maxCombo,
+			_hintsUsed
+		);
+
+		if (updated != null)
 		{
-			await _profileService.AddPointsAsync(_score);
+			ConfigurePalierProgress(updated);
 		}
 	}
 
@@ -138,13 +155,12 @@ public partial class SessionSummaryPage : ContentPage
 		var name = profile?.Name ?? "Élève";
 		var palier = profile?.Palier ?? 1;
 
-		var code = _challengeService.GenerateChallengeCode(_correctCount, _elapsedSeconds, palier);
-		var msg = _challengeService.GenerateShareMessage(name, _correctCount, _totalQuestions, _elapsedSeconds, code);
+		var msg = _challengeService.GenerateShareMessage(name, _correctCount, _totalQuestions, _elapsedSeconds, palier, _maxCombo);
 
 		await Share.Default.RequestAsync(new ShareTextRequest
 		{
 			Text = msg,
-			Title = "Défi PISA — AsPISApe"
+			Title = "Défi d'As — AsPISApe"
 		});
 	}
 

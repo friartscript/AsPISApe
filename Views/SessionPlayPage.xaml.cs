@@ -17,7 +17,9 @@ public partial class SessionPlayPage : ContentPage
 	private int _totalScore;
 	private int _correctCount;
 	private int _comboCount;
+	private double _maxComboMultiplier = 1.0;
 	private int _hintLevelUsed;
+	private int _totalHintsUsed;
 	private int _elapsedSeconds;
 	private bool _isAnswerLocked;
 	private CancellationTokenSource? _timerCts;
@@ -53,6 +55,8 @@ public partial class SessionPlayPage : ContentPage
 		_totalScore = 0;
 		_correctCount = 0;
 		_comboCount = 0;
+		_maxComboMultiplier = 1.0;
+		_totalHintsUsed = 0;
 		_elapsedSeconds = 0;
 
 		StartTimer();
@@ -125,99 +129,6 @@ public partial class SessionPlayPage : ContentPage
 		BuildChoices(q);
 	}
 
-	private void ApplyDisciplineStyle(string discipline)
-	{
-		var isMaths = string.Equals(discipline, "Maths", StringComparison.OrdinalIgnoreCase);
-		var isFrench = string.Equals(discipline, "Francais", StringComparison.OrdinalIgnoreCase);
-
-		DisciplineBadge.BackgroundColor = isMaths
-			? Color.FromArgb("#BDB2FF")
-			: (isFrench ? Color.FromArgb("#FFC6A5") : Color.FromArgb("#6CB4EE"));
-
-		DisciplineLabel.Text = isMaths
-			? "📐 Maths"
-			: (isFrench ? "📖 Français" : "♠ PISA Mixte");
-	}
-
-	private void BuildChoices(ExerciseQuestion q)
-	{
-		ChoicesLayout.Children.Clear();
-		for (var i = 0; i < q.Choices.Count; i++)
-		{
-			var choiceIndex = i;
-			var choiceText = q.Choices[i];
-			ChoicesLayout.Children.Add(CreateChoiceButton(choiceIndex, choiceText));
-		}
-	}
-
-	private Border CreateChoiceButton(int index, string text)
-	{
-		var letters = new[] { "A", "B", "C", "D" };
-		var letter = index < letters.Length ? letters[index] : (index + 1).ToString();
-
-		var border = new Border
-		{
-			BackgroundColor = Colors.White,
-			Stroke = Color.FromArgb("#2C3445"),
-			StrokeThickness = 2,
-			StrokeShape = new RoundRectangle { CornerRadius = new CornerRadius(16) },
-			Padding = new Thickness(12, 10),
-			HeightRequest = 52
-		};
-
-		var grid = new Grid
-		{
-			ColumnDefinitions = new ColumnDefinitionCollection
-			{
-				new(GridLength.Auto),
-				new(GridLength.Star)
-			},
-			ColumnSpacing = 10,
-			VerticalOptions = LayoutOptions.Center
-		};
-
-		var badge = new Border
-		{
-			WidthRequest = 28,
-			HeightRequest = 28,
-			StrokeShape = new RoundRectangle { CornerRadius = new CornerRadius(14) },
-			Stroke = Color.FromArgb("#2C3445"),
-			StrokeThickness = 1.2,
-			BackgroundColor = Color.FromArgb("#F1F5F9"),
-			Content = new Label
-			{
-				Text = letter,
-				FontSize = 12,
-				FontAttributes = FontAttributes.Bold,
-				TextColor = Color.FromArgb("#2C3445"),
-				HorizontalOptions = LayoutOptions.Center,
-				VerticalOptions = LayoutOptions.Center
-			}
-		};
-		Grid.SetColumn(badge, 0);
-		grid.Children.Add(badge);
-
-		var label = new Label
-		{
-			Text = text,
-			FontSize = 13,
-			FontAttributes = FontAttributes.Bold,
-			TextColor = Color.FromArgb("#2C3445"),
-			VerticalOptions = LayoutOptions.Center,
-			LineBreakMode = LineBreakMode.TailTruncation
-		};
-		Grid.SetColumn(label, 1);
-		grid.Children.Add(label);
-
-		border.Content = grid;
-
-		var tap = new TapGestureRecognizer();
-		tap.Tapped += (s, e) => OnChoiceTapped(index, border);
-		border.GestureRecognizers.Add(tap);
-
-		return border;
-	}
-
 	private async void OnChoiceTapped(int selectedIndex, Border selectedBorder)
 	{
 		if (_isAnswerLocked || _currentIndex >= _questions.Count) return;
@@ -235,7 +146,7 @@ public partial class SessionPlayPage : ContentPage
 			await HandleWrongAnswerAsync(selectedBorder, q);
 		}
 
-		await Task.Delay(900);
+		await Task.Delay(1400);
 		_currentIndex++;
 		DisplayCurrentQuestion();
 	}
@@ -249,11 +160,17 @@ public partial class SessionPlayPage : ContentPage
 
 		_correctCount++;
 		_comboCount++;
+		var multiplier = GetCurrentComboMultiplier();
+		if (multiplier > _maxComboMultiplier)
+		{
+			_maxComboMultiplier = multiplier;
+		}
 		UpdateComboDisplay();
 
 		var earned = _antiSecheService.CalculateEarnedPoints(q.BasePoints, _hintLevelUsed);
-		var multiplier = GetCurrentComboMultiplier();
 		_totalScore += (int)Math.Round(earned * multiplier);
+
+		ShowExplanation(q.ExplanationText, true);
 	}
 
 	private async Task HandleWrongAnswerAsync(Border border, ExerciseQuestion q)
@@ -268,22 +185,22 @@ public partial class SessionPlayPage : ContentPage
 		UpdateComboDisplay();
 
 		HighlightCorrectAnswer(q.CorrectChoiceIndex);
-		ShowExplanation(q.ExplanationText);
+		ShowExplanation(q.ExplanationText, false);
 	}
 
-	private void HighlightCorrectAnswer(int correctIndex)
-	{
-		if (correctIndex < ChoicesLayout.Children.Count &&
-			ChoicesLayout.Children[correctIndex] is Border correctBorder)
-		{
-			correctBorder.BackgroundColor = Color.FromArgb("#82D8A7");
-		}
-	}
-
-	private void ShowExplanation(string text)
+	private void ShowExplanation(string text, bool isSuccess)
 	{
 		if (string.IsNullOrWhiteSpace(text)) return;
-		ExplanationLabel.Text = text;
+		ExplanationBox.BackgroundColor = isSuccess
+			? Color.FromArgb("#DCFCE7")
+			: Color.FromArgb("#FFE8D6");
+		ExplanationBox.Stroke = isSuccess
+			? Color.FromArgb("#82D8A7")
+			: Color.FromArgb("#FFC6A5");
+		ExplanationLabel.TextColor = isSuccess
+			? Color.FromArgb("#166534")
+			: Color.FromArgb("#9A3412");
+		ExplanationLabel.Text = (isSuccess ? "✓ " : "✕ ") + text;
 		ExplanationBox.IsVisible = true;
 	}
 
@@ -297,7 +214,6 @@ public partial class SessionPlayPage : ContentPage
 	private async Task FinishSessionAsync()
 	{
 		StopTimer();
-		var maxCombo = GetCurrentComboMultiplier();
 		await _navigationService.NavigateToAsync(new SessionSummaryPage(
 			_navigationService,
 			_soundService,
@@ -308,7 +224,9 @@ public partial class SessionPlayPage : ContentPage
 			_questions.Count,
 			_totalScore,
 			_elapsedSeconds,
-			maxCombo
+			_maxComboMultiplier,
+			null,
+			_totalHintsUsed
 		));
 	}
 }

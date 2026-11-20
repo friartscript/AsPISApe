@@ -11,7 +11,9 @@ public class UserProfile
 	public int Stars { get; set; } = 1;
 	public int StreakDays { get; set; } = 1;
 	public int CurrentPalierXp { get; set; } = 0;
-	public int TargetPalierXp { get; set; } = 100;
+	public int TargetPalierXp { get; set; } = 300;
+	public List<string> Badges { get; set; } = new();
+	public DateTime? LastSessionDateUtc { get; set; }
 
 	public double AvatarScale
 	{

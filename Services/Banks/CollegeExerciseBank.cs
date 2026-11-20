@@ -51,8 +51,8 @@ public class CollegeExerciseBank
 			1 => _frenchBank.GenerateQuestionBySubject(_random.Next(1, 11)),
 			2 => _frenchBank.GenerateQuestionBySubject(_random.Next(11, 23)),
 			3 => _frenchBank.GenerateQuestionBySubject(_random.Next(23, 38)),
-			4 => _frenchBank.GenerateQuestionBySubject(_random.Next(38, 53)),
-			_ => _frenchBank.GenerateQuestionBySubject(_random.Next(53, 69))
+			4 => _random.Next(2) == 0 ? _frenchBank.GenerateQuestionBySubject(_random.Next(38, 53)) : _frenchBank.GenerateAdvancedQuestion(),
+			_ => _random.Next(2) == 0 ? _frenchBank.GenerateAdvancedQuestion() : _frenchBank.GenerateQuestionBySubject(_random.Next(53, 69))
 		};
 	}
 
